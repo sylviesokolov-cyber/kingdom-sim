@@ -25,7 +25,30 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Compatibility bridge for the existing bond-scene handler. It resolves the NPC
+      // from the active bond modal's character image without changing gameplay state.
+      Object.defineProperty(window, 'activeSceneNpcId', {
+        configurable: true,
+        get() {
+          const modal = document.querySelector('.fixed.inset-0.z-50');
+          const image = modal?.querySelector('img[alt]');
+          const name = image?.getAttribute('alt') || '';
+          const ids = {
+            Mira: 'mira',
+            Caren: 'caren',
+            Bran: 'bran',
+            Lyra: 'lyra',
+            Sylvie: 'sylvie',
+            Torvin: 'torvin',
+            Elena: 'elena',
+            Valerius: 'valerius',
+            Vesper: 'vesper',
+          };
+          return ids[name] || '';
+        },
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
