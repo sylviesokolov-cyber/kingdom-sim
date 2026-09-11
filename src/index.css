@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@keyframes live2dBreathe {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-2.5px) scale(1.018);
+  }
+}
+
+@keyframes live2dFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0.8deg);
+  }
+}
+
+@keyframes gachaShimmer {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(250%) skewX(-20deg);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(12px) scale(0.7);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-16px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-live2d-breathe {
+  animation: live2dBreathe 4s ease-in-out infinite;
+}
+
+.animate-live2d-float {
+  animation: live2dFloat 5s ease-in-out infinite;
+}
+
+.animate-gacha-shimmer {
+  animation: gachaShimmer 3s infinite;
+}
+
+.animate-particle-float {
+  animation: particleFloat 3.5s ease-in-out infinite;
+}
