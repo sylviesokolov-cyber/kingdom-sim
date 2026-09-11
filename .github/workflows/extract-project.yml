@@ -32,12 +32,6 @@ jobs:
           fi
 
           rm -f kingsim-main.zip
-          rm -f package.json
-
-          # Restore the actual package.json from the extracted project if present.
-          if [ -f kingsim-main/package.json ]; then
-            cp kingsim-main/package.json package.json
-          fi
 
       - name: Commit extracted project
         run: |
