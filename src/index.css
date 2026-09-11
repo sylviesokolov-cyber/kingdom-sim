@@ -1,182 +1,364 @@
 @import "tailwindcss";
 
+:root {
+  --ks-void: #080912;
+  --ks-panel: #14121d;
+  --ks-panel-2: #1d1927;
+  --ks-gold: #d9ae55;
+  --ks-gold-light: #f0d28a;
+  --ks-cream: #f4ebdd;
+  --ks-muted: #aaa1a5;
+  --ks-danger: #8e3447;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; min-height: 100%; margin: 0; }
+html { background: var(--ks-void); }
+body {
+  min-height: 100dvh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% -20%, rgba(126, 82, 28, .18), transparent 45%),
+    linear-gradient(180deg, #10101a 0%, #080912 100%);
+  color: var(--ks-cream);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior: none;
+}
+
+button, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button { min-height: 44px; }
+img { user-select: none; -webkit-user-drag: none; }
+
+/* ================================================================
+   KINGDOM SIM — MOBILE LANDSCAPE GAME SHELL
+   Primary target: installed PWA in landscape, 844×390 and above.
+   ================================================================ */
+
+#root > div:first-child {
+  width: 100%;
+  height: 100dvh;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  background: transparent;
+}
+
+#root > div:first-child > div {
+  width: 100%;
+  max-width: 1280px;
+  height: 100dvh;
+  max-height: none;
+  min-height: 0;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border-color: rgba(217, 174, 85, .24) !important;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(89, 62, 116, .09), transparent 38%),
+    linear-gradient(180deg, #11101a 0%, #090a12 100%) !important;
+  box-shadow: 0 0 80px rgba(0, 0, 0, .75) !important;
+}
+
+/* Compact, game-like top HUD rather than a web-app header. */
+header.sticky {
+  height: 62px;
+  min-height: 62px;
+  padding: 6px 10px !important;
+  background: linear-gradient(180deg, rgba(10, 10, 17, .97), rgba(12, 11, 18, .86)) !important;
+  border-bottom: 1px solid rgba(217, 174, 85, .26) !important;
+  box-shadow: 0 5px 22px rgba(0,0,0,.38) !important;
+  backdrop-filter: blur(18px);
+}
+
+header.sticky > div { max-width: none !important; }
+header.sticky button { min-height: 42px; }
+
+/* RPG typography accents. */
+h1, h2, h3, [class*="font-serif"] {
+  font-family: Cinzel, "Times New Roman", serif;
+  letter-spacing: .025em;
+}
+
+/* Main viewport never becomes a scrolling desktop dashboard. */
+main.flex-1 {
+  min-height: 0 !important;
+  overflow: hidden !important;
+  background: #090a12;
+}
+
+/* ================================================================
+   THRONE / HOME STAGE
+   ================================================================ */
+
+main.flex-1 > div:first-child {
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+/* Stage atmosphere: rich vignette and cinematic depth. */
+main.flex-1 > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 12;
+  background:
+    linear-gradient(90deg, rgba(5,5,10,.38), transparent 22%, transparent 78%, rgba(5,5,10,.48)),
+    linear-gradient(180deg, rgba(4,4,8,.08), transparent 35%, rgba(4,4,8,.5));
+}
+
+/* Top quest strip is allowed to float over the scene. */
+main.flex-1 > div:first-child > div:first-child {
+  flex: 0 0 auto;
+  min-height: 48px;
+}
+
+/* The character + companion information become the dominant landscape split. */
+main.flex-1 > div:first-child > div:nth-child(2) {
+  min-height: 0 !important;
+  flex: 1 1 auto !important;
+  align-items: stretch !important;
+  gap: 12px !important;
+  padding: 2px 12px 0 !important;
+}
+
+/* Character stage gets visual priority. */
+main.flex-1 > div:first-child > div:nth-child(2) > div:first-child {
+  flex: 1 1 auto !important;
+  width: auto !important;
+  max-width: none !important;
+  min-width: 0 !important;
+}
+
+/* Companion/action panel: dark glass card on the right. */
+main.flex-1 > div:first-child > div:nth-child(2) > div:last-child {
+  flex: 0 0 clamp(260px, 29vw, 360px) !important;
+  width: clamp(260px, 29vw, 360px) !important;
+  max-width: none !important;
+  min-width: 250px !important;
+  margin: 10px 4px 12px 0 !important;
+  padding: 12px !important;
+  border: 1px solid rgba(217,174,85,.25);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(27,23,37,.92), rgba(10,10,17,.78));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 18px 35px rgba(0,0,0,.3);
+  backdrop-filter: blur(14px);
+  overflow: auto;
+}
+
+/* Standing illustration: maximize presence without clipping. */
+[title="Click to interact and hear companion voice"] {
+  height: min(100%, 600px) !important;
+  min-height: 0 !important;
+  flex: 1 1 auto;
+  overflow: visible !important;
+}
+
+[title="Click to interact and hear companion voice"] > img {
+  height: 100% !important;
+  max-height: none !important;
+  max-width: min(70%, 520px) !important;
+  object-fit: contain !important;
+  object-position: bottom center !important;
+  filter: drop-shadow(0 22px 35px rgba(0,0,0,.9));
+  animation: characterEntrance 650ms ease-out both, live2dBreathe 4s ease-in-out 650ms infinite;
+  transform-origin: bottom center;
+}
+
+[title="Click to interact and hear companion voice"]::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  top: 10%;
+  width: min(65%, 430px);
+  height: 75%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(122,76,176,.16), rgba(217,174,85,.08) 38%, transparent 72%);
+  filter: blur(20px);
+  pointer-events: none;
+  animation: throneAura 4s ease-in-out infinite;
+}
+
+/* Bottom dock is thumb-friendly and visually distinct from desktop navigation. */
+nav.sticky.bottom-0 {
+  height: 72px;
+  min-height: 72px;
+  padding: 6px 10px 8px !important;
+  background: linear-gradient(180deg, rgba(10,9,15,.84), rgba(7,7,11,.98)) !important;
+  border-top: 1px solid rgba(217,174,85,.28) !important;
+  backdrop-filter: blur(18px);
+}
+
+nav.sticky.bottom-0 > div {
+  max-width: 720px !important;
+  height: 100%;
+}
+
+nav.sticky.bottom-0 button {
+  min-height: 52px;
+  border-radius: 14px !important;
+  transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+nav.sticky.bottom-0 button:active { transform: scale(.94); }
+
+/* Gold selected state feels like a game-system focus rather than a dashboard tab. */
+nav.sticky.bottom-0 button[class*="amber-500/30"] {
+  background: linear-gradient(180deg, rgba(217,174,85,.24), rgba(217,174,85,.08)) !important;
+  border-color: rgba(240,210,138,.58) !important;
+  box-shadow: 0 0 20px rgba(217,174,85,.12), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* Toasts sit beneath the HUD, avoiding thumb/navigation collision. */
+.fixed.top-16 { top: 70px !important; max-width: min(92vw, 520px); }
+
+/* ================================================================
+   LANDSCAPE PHONE: 844×390 / small tablets
+   ================================================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+  header.sticky {
+    height: 50px;
+    min-height: 50px;
+    padding: 3px 6px !important;
+  }
+
+  header.sticky button { min-height: 40px; }
+  header.sticky .hidden.sm\:inline { display: none !important; }
+
+  main.flex-1 > div:first-child > div:first-child {
+    min-height: 36px;
+    padding-top: 0 !important;
+  }
+
+  main.flex-1 > div:first-child > div:first-child > div {
+    font-size: 9px !important;
+  }
+
+  main.flex-1 > div:first-child > div:nth-child(2) {
+    padding: 0 6px !important;
+    gap: 6px !important;
+  }
+
+  main.flex-1 > div:first-child > div:nth-child(2) > div:last-child {
+    flex-basis: 250px !important;
+    width: 250px !important;
+    min-width: 230px !important;
+    margin: 4px 2px 6px 0 !important;
+    padding: 8px !important;
+    border-radius: 14px;
+  }
+
+  [title="Click to interact and hear companion voice"] > img {
+    max-width: 78% !important;
+  }
+
+  nav.sticky.bottom-0 {
+    height: 56px;
+    min-height: 56px;
+    padding: 3px 5px 4px !important;
+  }
+
+  nav.sticky.bottom-0 button {
+    min-height: 46px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    border-radius: 11px !important;
+  }
+
+  nav.sticky.bottom-0 svg { width: 17px !important; height: 17px !important; }
+  nav.sticky.bottom-0 span { font-size: 8px !important; }
+}
+
+/* Very short landscape phones: prioritize character and hide secondary text. */
+@media (max-height: 430px) and (orientation: landscape) {
+  body { font-size: 12px; }
+  header.sticky { height: 46px; min-height: 46px; }
+  main.flex-1 > div:first-child > div:first-child { min-height: 30px; }
+  main.flex-1 > div:first-child > div:nth-child(2) > div:last-child {
+    flex-basis: 238px !important;
+    width: 238px !important;
+    min-width: 220px !important;
+    margin-top: 2px !important;
+    margin-bottom: 4px !important;
+  }
+  nav.sticky.bottom-0 { height: 52px; min-height: 52px; }
+  nav.sticky.bottom-0 button { min-height: 42px; }
+}
+
+/* ================================================================
+   PORTRAIT FALLBACK — usable, but landscape remains the intended mode.
+   ================================================================ */
+@media (max-width: 767px) and (orientation: portrait) {
+  body { overflow: hidden; }
+  #root > div:first-child > div { height: 100dvh; }
+  header.sticky { height: 56px; min-height: 56px; }
+  main.flex-1 { overflow-y: auto !important; }
+  main.flex-1 > div:first-child > div:nth-child(2) { flex-direction: column !important; overflow-y: auto; }
+  main.flex-1 > div:first-child > div:nth-child(2) > div:last-child {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex-basis: auto !important;
+    margin: 0 0 8px !important;
+  }
+  [title="Click to interact and hear companion voice"] { min-height: 300px !important; }
+  nav.sticky.bottom-0 { height: 66px; min-height: 66px; }
+}
+
+/* ================================================================
+   MOTION
+   ================================================================ */
 @keyframes live2dBreathe {
-  0%, 100% {
-    transform: translateY(0) scale(1);
-  }
-  50% {
-    transform: translateY(-2.5px) scale(1.018);
-  }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2.5px) scale(1.018); }
 }
 
 @keyframes live2dFloat {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-5px) rotate(0.8deg);
-  }
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(.8deg); }
 }
 
 @keyframes gachaShimmer {
-  0% {
-    transform: translateX(-150%) skewX(-20deg);
-  }
-  100% {
-    transform: translateX(250%) skewX(-20deg);
-  }
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
 }
 
 @keyframes particleFloat {
-  0% {
-    transform: translateY(12px) scale(0.7);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.85;
-  }
-  100% {
-    transform: translateY(-16px) scale(1.1);
-    opacity: 0;
-  }
+  0% { transform: translateY(12px) scale(.7); opacity: 0; }
+  50% { opacity: .85; }
+  100% { transform: translateY(-16px) scale(1.1); opacity: 0; }
 }
 
-/* Premium mobile-RPG throne-stage motion */
 @keyframes throneAura {
-  0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
-  50% { opacity: 0.75; transform: scaleX(1.04); }
+  0%, 100% { opacity: .32; transform: translateX(-50%) scaleX(.92); }
+  50% { opacity: .72; transform: translateX(-50%) scaleX(1.04); }
 }
 
 @keyframes characterEntrance {
-  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.animate-live2d-breathe {
-  animation: live2dBreathe 4s ease-in-out infinite;
-}
-
-.animate-live2d-float {
-  animation: live2dFloat 5s ease-in-out infinite;
-}
-
-.animate-gacha-shimmer {
-  animation: gachaShimmer 3s infinite;
-}
-
-.animate-particle-float {
-  animation: particleFloat 3.5s ease-in-out infinite;
-}
-
-/* The standing-art wrapper has a stable title, so this remains resilient
-   even when the React component's Tailwind classes change. */
-@media (min-width: 768px) {
-  [title="Click to interact and hear companion voice"] {
-    height: clamp(390px, 68vh, 620px) !important;
-    min-height: 390px !important;
-    overflow: visible !important;
-  }
-
-  [title="Click to interact and hear companion voice"]::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: 5%;
-    left: 50%;
-    width: min(88%, 440px);
-    height: 82%;
-    transform: translateX(-50%);
-    background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.16) 0%, rgba(245, 158, 11, 0.08) 38%, rgba(0,0,0,0) 72%);
-    filter: blur(18px);
-    pointer-events: none;
-  }
-
-  [title="Click to interact and hear companion voice"] > img {
-    height: 100% !important;
-    max-height: none !important;
-    max-width: min(100%, 430px) !important;
-    object-fit: contain !important;
-    object-position: bottom center !important;
-    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.92));
-    animation: characterEntrance 650ms ease-out both, live2dBreathe 4s ease-in-out 650ms infinite;
-    transform-origin: bottom center;
-  }
-
-  [title="Click to interact and hear companion voice"]::after {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    bottom: -2px;
-    width: min(72%, 360px);
-    height: 44px;
-    border-radius: 999px;
-    background: radial-gradient(ellipse, rgba(245, 158, 11, 0.24), rgba(0,0,0,0) 70%);
-    filter: blur(7px);
-    pointer-events: none;
-    animation: throneAura 4s ease-in-out infinite;
-  }
-
-  /* Let the nameplate sit into the artwork instead of wasting vertical space. */
-  [title="Click to interact and hear companion voice"] + div {
-    margin-top: -34px !important;
-    max-width: min(92%, 520px);
-    box-shadow: 0 18px 40px rgba(0,0,0,0.48), 0 0 24px rgba(245,158,11,0.08);
-  }
-}
-
-@media (max-width: 767px) and (orientation: landscape) {
-  [title="Click to interact and hear companion voice"] {
-    height: clamp(250px, 58vh, 360px) !important;
-    min-height: 250px !important;
-    overflow: visible !important;
-  }
-
-  [title="Click to interact and hear companion voice"] > img {
-    height: 100% !important;
-    max-height: none !important;
-    max-width: 72vw !important;
-    object-fit: contain !important;
-    object-position: bottom center !important;
-    filter: drop-shadow(0 14px 25px rgba(0, 0, 0, 0.9));
-  }
-
-  [title="Click to interact and hear companion voice"] + div {
-    margin-top: -20px !important;
-    max-width: 94%;
-  }
-}
-
-/* On narrow portrait fallback, enlarge the art without making the dialogue
-   controls unusable. */
-@media (max-width: 767px) and (orientation: portrait) {
-  [title="Click to interact and hear companion voice"] {
-    height: clamp(300px, 48vh, 430px) !important;
-    min-height: 300px !important;
-    overflow: visible !important;
-  }
-
-  [title="Click to interact and hear companion voice"] > img {
-    height: 100% !important;
-    max-height: none !important;
-    max-width: 92vw !important;
-    object-fit: contain !important;
-    object-position: bottom center !important;
-  }
-
-  [title="Click to interact and hear companion voice"] + div {
-    margin-top: -22px !important;
-    max-width: 96%;
-  }
-}
+.animate-live2d-breathe { animation: live2dBreathe 4s ease-in-out infinite; }
+.animate-live2d-float { animation: live2dFloat 5s ease-in-out infinite; }
+.animate-gacha-shimmer { animation: gachaShimmer 3s infinite; }
+.animate-particle-float { animation: particleFloat 3.5s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-live2d-breathe,
-  .animate-live2d-float,
-  .animate-gacha-shimmer,
-  .animate-particle-float,
-  [title="Click to interact and hear companion voice"] > img,
-  [title="Click to interact and hear companion voice"]::before,
-  [title="Click to interact and hear companion voice"]::after {
-    animation: none !important;
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
   }
+}
+
+/* PWA safe-area support. */
+@supports (padding: env(safe-area-inset-top)) {
+  header.sticky { padding-top: max(6px, env(safe-area-inset-top)) !important; }
+  nav.sticky.bottom-0 { padding-bottom: max(8px, env(safe-area-inset-bottom)) !important; }
 }
