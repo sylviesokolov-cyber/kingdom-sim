@@ -3,7 +3,7 @@
 > Update this file after meaningful development. Use `[x]` only for work verified in the repository; use `[~]` for partial/foundation work; use `[ ]` for planned work.
 
 ## Current milestone
-**Foundation / Mobile Landscape UI Overhaul**
+**Build 2 — Throne / Home 2.0 Mobile Landscape**
 
 ## Project snapshot
 - [x] React + TypeScript + Vite application exists
@@ -18,6 +18,13 @@
 - [x] Safe-area support added to the game shell
 - [x] Thumb-friendly bottom navigation sizing added
 - [x] Cinematic throne-stage visual hierarchy added
+- [x] Build 2 throne/home stage redesigned around illustration-first landscape composition
+- [x] Build 2 compact companion command card with portrait, dialogue, stats and bond CTA
+- [x] Build 2 retinue selector for switching active companions
+- [x] Build 2 audience choices for rumor/report/praise interactions
+- [x] Build 2 next-day command and kingdom-health quick action
+- [x] Build 2 distress alert routes to NPC management
+- [x] Character image fallback added to reduce broken-art failures
 
 ## Existing gameplay systems
 - [x] Player social rank progression model
@@ -82,7 +89,7 @@
 3. **Gameplay loop stabilization.** Ensure day advancement, jobs, market, NPC condition, events, relationships, and saving behave consistently.
 4. **Simulation extraction.** Move daily rules into testable engine functions.
 5. **Player-facing onboarding.** Make the first several in-game days understandable and purposeful.
-6. **Build the redesigned visual system screen-by-screen**, starting with Throne/Home, then Character Roster/Profile, Kingdom, and Bond/VN.
+6. **Build the redesigned visual system screen-by-screen**, with Throne/Home now at Build 2 and Character Roster/Profile next.
 
 ## Playtest log
 
@@ -113,3 +120,4 @@ Record:
 - Added `docs/DEVELOPMENT_PLAN.md` with ordered roadmap and definition of done.
 - Added this living development tracker.
 - Added the first mobile-first landscape UI foundation: cinematic game shell, compact HUD treatment, right-side companion panel treatment, thumb-friendly bottom dock, safe-area handling, and portrait fallback.
+- Added Build 2 Throne/Home: illustration-first landscape stage, active companion card, dialogue/audience choices, RPG stat strip, bond-ready CTA, retinue selector, next-day control, kingdom-health shortcut, distress alert, and character-art fallback handling.
