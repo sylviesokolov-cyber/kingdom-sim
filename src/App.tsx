@@ -573,7 +573,7 @@ export default function App() {
 
     if (earnedAffection > 0) {
       setNpcs((prevNpcs) => prevNpcs.map((n) =>
-        n.id === activeSceneNpcId
+        n.id === scene.npcId
           ? { ...n, affection: Math.min(100, (n.affection || 0) + earnedAffection) }
           : n
       ));
