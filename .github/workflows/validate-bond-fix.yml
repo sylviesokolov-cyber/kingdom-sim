@@ -1,0 +1,55 @@
+name: Validate Bond Scene Fix
+
+on:
+  push:
+    branches:
+      - fix/validate-bond-scene
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fix known bond scene reference
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('src/App.tsx')
+          text = path.read_text()
+          old = 'n.id === activeSceneNpcId'
+          new = 'n.id === scene.npcId'
+          if old in text:
+              text = text.replace(old, new)
+              path.write_text(text)
+          PY
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Type check
+        run: npm run lint
+
+      - name: Production build
+        run: npm run build
+
+      - name: Commit validated fix
+        run: |
+          if git diff --quiet; then
+            echo "No source changes needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/App.tsx
+          git commit -m "Fix bond scene NPC reference"
+          git push
