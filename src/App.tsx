@@ -548,66 +548,51 @@ export default function App() {
     setActiveBondScene(scene);
   };
 
-  const handleCompleteBondScene = (sceneId: string, reward: any) => {
+  const handleCompleteBondScene = (scene: BondScene, earnedAffection: number, statGains?: { stat: 'might' | 'cunning' | 'authority' | 'piety'; value: number }) => {
+  const sceneId = scene.id;
+  const reward = scene.reward;
+  const alreadyCompleted = (player.completedBondSceneIds || []).includes(sceneId);
+
+  if (!alreadyCompleted) {
     setPlayer((prev) => {
-      const alreadyCompleted = (prev.completedBondSceneIds || []).includes(sceneId);
-      const updatedCompleted = alreadyCompleted
-        ? (prev.completedBondSceneIds || [])
-        : [...(prev.completedBondSceneIds || []), sceneId];
-
-      const currentPerks = prev.activePerks || [];
-      const updatedPerks = (alreadyCompleted || !reward?.perk)
-        ? currentPerks
-        : currentPerks.includes(reward.perk)
-        ? currentPerks
-        : [...currentPerks, reward.perk];
-
       const currentStats = prev.stats || { level: 1, exp: 0, maxExp: 100, might: 14, cunning: 16, authority: 12, piety: 10 };
       const newStats = { ...currentStats };
-      if (reward?.stats) {
-        Object.entries(reward.stats).forEach(([statName, val]) => {
-          if (statName in newStats) {
-            (newStats as any)[statName] += (val as number);
-          }
-        });
-      }
-
+      if (statGains) newStats[statGains.stat] += statGains.value;
       return {
         ...prev,
-        copper: prev.copper + (reward?.copper || 0),
+        copper: prev.copper + (reward.copperBonus || 0),
+        maxEnergy: prev.maxEnergy + (reward.maxEnergyBonus || 0),
+        energy: Math.min(prev.maxEnergy + (reward.maxEnergyBonus || 0), prev.energy + (reward.maxEnergyBonus || 0)),
         stats: newStats,
-        completedBondSceneIds: updatedCompleted,
-        activePerks: updatedPerks,
+        completedBondSceneIds: [...(prev.completedBondSceneIds || []), sceneId],
+        activePerks: (prev.activePerks || []).includes(reward.perkId)
+          ? (prev.activePerks || [])
+          : [...(prev.activePerks || []), reward.perkId],
       };
     });
 
-    if (reward?.affectionBonus && activeBondScene) {
-      setNpcs((prevNpcs) =>
-        prevNpcs.map((n) =>
-          n.id === activeBondScene.npcId
-            ? { ...n, affection: Math.min(100, (n.affection || 0) + reward.affectionBonus) }
-            : n
-        )
-      );
+    if (earnedAffection > 0) {
+      setNpcs((prevNpcs) => prevNpcs.map((n) =>
+        n.id === activeSceneNpcId
+          ? { ...n, affection: Math.min(100, (n.affection || 0) + earnedAffection) }
+          : n
+      ));
     }
 
-    if (reward?.kingdomStats) {
-      setKingdom((prev) => {
-        const nextK = { ...prev };
-        Object.entries(reward.kingdomStats).forEach(([k, v]) => {
-          if (k in nextK) {
-            (nextK as any)[k] = Math.max(0, Math.min(100, (nextK as any)[k] + (v as number)));
-          }
-        });
-        return nextK;
-      });
+    if (reward.statBonus) {
+      setPlayer((prev) => ({
+        ...prev,
+        stats: {
+          ...(prev.stats || { level: 1, exp: 0, maxExp: 100, might: 14, cunning: 16, authority: 12, piety: 10 }),
+          [reward.statBonus!.stat]: (prev.stats?.[reward.statBonus!.stat] || 0) + reward.statBonus!.value,
+        },
+      }));
     }
 
-    if (reward?.title) {
-      showToast(`✨ Covenant Bond Fulfilled! Received: ${reward.title}`);
-    }
-  };
-
+    showToast(`✨ Covenant Bond Fulfilled! Received: ${reward.title}`);
+  }
+  setActiveBondScene(null);
+};
   // Commit Crime
   const handleCommitCrime = (crime: {
     id: string;

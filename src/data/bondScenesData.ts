@@ -149,7 +149,7 @@ export const BOND_SCENES: BondScene[] = [
             response: 'Mira nods proudly, feeling an unshakeable bond with your righteous ambition.',
             affectionGain: 8,
             rpgStatGain: { stat: 'authority', value: 1 },
-            reactionEmotion: 'determined',
+            reactionEmotion: 'serious',
           },
         ],
       },
