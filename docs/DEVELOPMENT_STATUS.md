@@ -3,16 +3,21 @@
 > Update this file after meaningful development. Use `[x]` only for work verified in the repository; use `[~]` for partial/foundation work; use `[ ]` for planned work.
 
 ## Current milestone
-**Foundation / Playtest & Stabilization**
+**Foundation / Mobile Landscape UI Overhaul**
 
 ## Project snapshot
 - [x] React + TypeScript + Vite application exists
-- [x] Private GitHub repository connected and writable
+- [x] Public GitHub repository connected and writable
 - [x] Persistent AI development context added
 - [x] Game design/story baseline documented
 - [x] Development roadmap documented
-- [ ] Fresh-save end-to-end playthrough verified by current development environment
+- [~] Fresh-save end-to-end playthrough pending runtime verification
 - [ ] Automated build/lint status verified after latest repository changes
+- [x] Mobile-first landscape game shell styling added
+- [x] PWA landscape orientation already configured and retained
+- [x] Safe-area support added to the game shell
+- [x] Thumb-friendly bottom navigation sizing added
+- [x] Cinematic throne-stage visual hierarchy added
 
 ## Existing gameplay systems
 - [x] Player social rank progression model
@@ -77,6 +82,7 @@
 3. **Gameplay loop stabilization.** Ensure day advancement, jobs, market, NPC condition, events, relationships, and saving behave consistently.
 4. **Simulation extraction.** Move daily rules into testable engine functions.
 5. **Player-facing onboarding.** Make the first several in-game days understandable and purposeful.
+6. **Build the redesigned visual system screen-by-screen**, starting with Throne/Home, then Character Roster/Profile, Kingdom, and Bond/VN.
 
 ## Playtest log
 
@@ -106,3 +112,4 @@ Record:
 - Added `docs/GAME_BIBLE.md` with implemented-feature baseline and target narrative/design context.
 - Added `docs/DEVELOPMENT_PLAN.md` with ordered roadmap and definition of done.
 - Added this living development tracker.
+- Added the first mobile-first landscape UI foundation: cinematic game shell, compact HUD treatment, right-side companion panel treatment, thumb-friendly bottom dock, safe-area handling, and portrait fallback.
