@@ -19,7 +19,7 @@ export interface ResourceItem {
   description: string;
   sourceNpcId: string;
   sourceFacility: string;
-  basePrice: number; // in Copper coins (100 Copper = 1 Silver, 10 Silver = 1 Gold)
+  basePrice: number;
   unit: string;
 }
 
@@ -30,26 +30,26 @@ export interface NpcCharacter {
   role: string;
   district: string;
   facility: string;
-  avatarSeed: string; // for custom anime rendering fallback
-  avatarUrl?: string; // authentic gacha character avatar headshot
-  portraitUrl?: string; // authentic gacha character full standing portrait
-  backgroundUrl?: string; // scenic district / facility background
-  rarity?: 'SSR' | 'SR' | 'R'; // optional internal tier
+  avatarSeed: string;
+  avatarUrl?: string;
+  portraitUrl?: string;
+  backgroundUrl?: string;
+  rarity?: 'SSR' | 'SR' | 'R';
   themeColor: string;
   hairColor: string;
   eyeColor: string;
   personality: string;
-  health: number; // 0 - 100
+  health: number;
   maxHealth: number;
-  energy: number; // 0 - 100
+  energy: number;
   status: NpcStatus;
   illnessName?: string;
   daysSick?: number;
-  loyalty: number; // -100 to 100 towards player
-  affection: number; // 0 to 100
-  managedResource: string; // resource ID
+  loyalty: number;
+  affection: number;
+  managedResource: string;
   baseProductionPerDay: number;
-  efficiencyModifier: number; // 0.0 to 1.5 based on health/mood
+  efficiencyModifier: number;
   backstory: string;
   greetings: string[];
   dialogueTopics: {
@@ -65,24 +65,24 @@ export interface NpcCharacter {
 
 export interface KingdomStats {
   population: number;
-  granary: number; // 0 - 100%
-  cleanWater: number; // 0 - 100%
-  publicHealth: number; // 0 - 100%
-  security: number; // 0 - 100%
-  piety: number; // 0 - 100%
-  treasuryGold: number; // total state gold
-  unrest: number; // 0 - 100%
-  prosperity: number; // 0 - 100%
+  granary: number;
+  cleanWater: number;
+  publicHealth: number;
+  security: number;
+  piety: number;
+  treasuryGold: number;
+  unrest: number;
+  prosperity: number;
 }
 
 export interface PlayerRpgStats {
   level: number;
   exp: number;
   maxExp: number;
-  might: number; // Combat / Physical strength
-  cunning: number; // Intrigue / Shadow network
-  authority: number; // Leadership / Decrees & Petitions
-  piety: number; // Devotion / Cathedral & Miracles
+  might: number;
+  cunning: number;
+  authority: number;
+  piety: number;
 }
 
 export interface PlayerInventory {
@@ -94,15 +94,15 @@ export interface PlayerState {
   title: string;
   gender: 'male' | 'female';
   rank: SocialRank;
-  rankProgress: number; // 0 to 100% to next tier
-  copper: number; // 1 Gold = 1000 Copper, 1 Silver = 100 Copper
-  energy: number; // current energy (0 - 100)
+  rankProgress: number;
+  copper: number;
+  energy: number;
   maxEnergy: number;
-  hunger: number; // 0 (stuffed) to 100 (starving)
-  health: number; // 0 - 100
+  hunger: number;
+  health: number;
   stats?: PlayerRpgStats;
   reputation: {
-    peasantry: number; // -100 to 100
+    peasantry: number;
     clergy: number;
     military: number;
     nobility: number;
@@ -175,21 +175,23 @@ export interface MarketPrice {
   trend: 'up' | 'down' | 'steady';
 }
 
+export type BondEmotion = 'normal' | 'happy' | 'blush' | 'serious' | 'tender' | 'thoughtful' | 'determined';
+
 export interface BondDialogueChoice {
   id: string;
   text: string;
   response: string;
   affectionGain?: number;
   rpgStatGain?: { stat: 'might' | 'cunning' | 'authority' | 'piety'; value: number };
-  reactionEmotion?: 'normal' | 'happy' | 'blush' | 'serious' | 'tender' | 'thoughtful';
+  reactionEmotion?: BondEmotion;
 }
 
 export interface BondDialogueStep {
   id: string;
-  speaker: string; // NPC name, player name, or 'Narrator'
+  speaker: string;
   isNarrator?: boolean;
   text: string;
-  emotion?: 'normal' | 'happy' | 'blush' | 'serious' | 'tender' | 'thoughtful';
+  emotion?: BondEmotion;
   choices?: BondDialogueChoice[];
 }
 
@@ -197,8 +199,8 @@ export interface BondScene {
   id: string;
   npcId: string;
   title: string;
-  episodeNumber: number; // 1, 2, 3, etc.
-  requiredAffection: number; // e.g. 25, 50, 75
+  episodeNumber: number;
+  requiredAffection: number;
   synopsis: string;
   location: string;
   scenicBackgroundUrl?: string;
@@ -212,4 +214,3 @@ export interface BondScene {
   };
   script: BondDialogueStep[];
 }
-
