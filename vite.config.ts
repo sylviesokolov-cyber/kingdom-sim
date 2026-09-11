@@ -5,14 +5,17 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 const base = '/kingdom-sim/';
 
-// Character data currently stores asset paths as `/characters/...`.
-// GitHub Pages serves this app from `/kingdom-sim/`, so rewrite those
-// paths during the Vite transform instead of breaking local data files.
+// Character data intentionally uses `/characters/...` so it also works when
+// the app is served from the domain root. GitHub Pages hosts this app under
+// `/kingdom-sim/`, so rewrite the final JavaScript chunks after bundling.
+// Doing this in renderChunk is reliable for both TS source and bundled code.
 const characterAssetPathPlugin = {
   name: 'kingdom-sim-character-asset-paths',
-  transform(code: string, id: string) {
-    if (!/\.[cm]?[jt]sx?$/.test(id) || id.includes('node_modules')) return null;
-    const rewritten = code.replaceAll("'/characters/", "'/kingdom-sim/characters/");
+  renderChunk(code: string) {
+    const rewritten = code
+      .replaceAll('"/characters/', '"/kingdom-sim/characters/')
+      .replaceAll("'/characters/", "'/kingdom-sim/characters/");
+
     return rewritten === code ? null : { code: rewritten, map: null };
   },
 };
