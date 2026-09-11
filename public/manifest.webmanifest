@@ -1,31 +1,31 @@
 {
-  "id": "/",
-  "name": "Kingdom Simulator",
-  "short_name": "KingdomSim",
-  "description": "A mobile kingdom simulation game where you rise from refugee peasant through work, trade, crime, faith, and politics to the royal throne.",
-  "start_url": "/",
-  "scope": "/",
+  "id": "/kingdom-sim/",
+  "name": "Kingdom Sim — Valenreach",
+  "short_name": "Kingdom Sim",
+  "description": "Anime medieval-fantasy life, relationship, and kingdom RPG set in Valenreach.",
+  "start_url": "/kingdom-sim/",
+  "scope": "/kingdom-sim/",
   "display": "fullscreen",
   "orientation": "landscape",
-  "theme_color": "#020617",
-  "background_color": "#020617",
+  "theme_color": "#080912",
+  "background_color": "#080912",
   "lang": "en",
   "categories": ["games", "simulation", "roleplaying"],
   "icons": [
     {
-      "src": "/pwa-192x192.png",
+      "src": "/kingdom-sim/pwa-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/pwa-512x512.png",
+      "src": "/kingdom-sim/pwa-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "maskable"
     },
     {
-      "src": "/pwa-maskable-512x512.png",
+      "src": "/kingdom-sim/pwa-maskable-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -33,11 +33,11 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshot-landscape.png",
+      "src": "/kingdom-sim/screenshot-landscape.png",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Valenreach Kingdom Simulator Gameplay"
+      "label": "Kingdom Sim — Valenreach landscape gameplay"
     }
   ]
 }
