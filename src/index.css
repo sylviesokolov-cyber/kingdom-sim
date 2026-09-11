@@ -41,6 +41,17 @@
   }
 }
 
+/* Premium mobile-RPG throne-stage motion */
+@keyframes throneAura {
+  0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
+  50% { opacity: 0.75; transform: scaleX(1.04); }
+}
+
+@keyframes characterEntrance {
+  from { opacity: 0; transform: translateY(18px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .animate-live2d-breathe {
   animation: live2dBreathe 4s ease-in-out infinite;
 }
@@ -55,4 +66,85 @@
 
 .animate-particle-float {
   animation: particleFloat 3.5s ease-in-out infinite;
+}
+
+/* The standing-art wrapper has a stable title, so this remains resilient
+   even when the React component's Tailwind classes change. */
+@media (min-width: 768px) {
+  [title="Click to interact and hear companion voice"] {
+    height: clamp(390px, 68vh, 620px) !important;
+    min-height: 390px !important;
+    overflow: visible !important;
+  }
+
+  [title="Click to interact and hear companion voice"] > img {
+    height: 100% !important;
+    max-height: none !important;
+    max-width: min(100%, 430px) !important;
+    object-fit: contain !important;
+    object-position: bottom center !important;
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.92));
+    animation: characterEntrance 650ms ease-out both, live2dBreathe 4s ease-in-out 650ms infinite;
+    transform-origin: bottom center;
+  }
+
+  [title="Click to interact and hear companion voice"]::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: -2px;
+    width: min(72%, 360px);
+    height: 44px;
+    border-radius: 999px;
+    background: radial-gradient(ellipse, rgba(245, 158, 11, 0.24), rgba(0,0,0,0) 70%);
+    filter: blur(7px);
+    pointer-events: none;
+    animation: throneAura 4s ease-in-out infinite;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+  [title="Click to interact and hear companion voice"] {
+    height: clamp(250px, 58vh, 360px) !important;
+    min-height: 250px !important;
+    overflow: visible !important;
+  }
+
+  [title="Click to interact and hear companion voice"] > img {
+    height: 100% !important;
+    max-height: none !important;
+    max-width: 72vw !important;
+    object-fit: contain !important;
+    object-position: bottom center !important;
+    filter: drop-shadow(0 14px 25px rgba(0, 0, 0, 0.9));
+  }
+}
+
+/* On narrow portrait fallback, enlarge the art without making the dialogue
+   controls unusable. */
+@media (max-width: 767px) and (orientation: portrait) {
+  [title="Click to interact and hear companion voice"] {
+    height: clamp(300px, 48vh, 430px) !important;
+    min-height: 300px !important;
+    overflow: visible !important;
+  }
+
+  [title="Click to interact and hear companion voice"] > img {
+    height: 100% !important;
+    max-height: none !important;
+    max-width: 92vw !important;
+    object-fit: contain !important;
+    object-position: bottom center !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-live2d-breathe,
+  .animate-live2d-float,
+  .animate-gacha-shimmer,
+  .animate-particle-float,
+  [title="Click to interact and hear companion voice"] > img,
+  [title="Click to interact and hear companion voice"]::after {
+    animation: none !important;
+  }
 }
