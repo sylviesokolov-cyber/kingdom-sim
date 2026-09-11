@@ -5,9 +5,22 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 const base = '/kingdom-sim/';
 
+// Character data currently stores asset paths as `/characters/...`.
+// GitHub Pages serves this app from `/kingdom-sim/`, so rewrite those
+// paths during the Vite transform instead of breaking local data files.
+const characterAssetPathPlugin = {
+  name: 'kingdom-sim-character-asset-paths',
+  transform(code: string, id: string) {
+    if (!/\.[cm]?[jt]sx?$/.test(id) || id.includes('node_modules')) return null;
+    const rewritten = code.replaceAll("'/characters/", "'/kingdom-sim/characters/");
+    return rewritten === code ? null : { code: rewritten, map: null };
+  },
+};
+
 export default defineConfig({
   base,
   plugins: [
+    characterAssetPathPlugin,
     react(),
     tailwindcss(),
     VitePWA({
@@ -28,7 +41,7 @@ export default defineConfig({
         categories: ['games', 'simulation', 'roleplaying'],
         icons: [
           { src: `${base}pwa-192x192.png`, sizes: '192x192', type: 'image/png', purpose: 'any' },
-          { src: `${base}pwa-512x512.png`, sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: `${base}pwa-512x512.png`, sizes: '512x512', type: 'image/png', purpose: 'maskable' },
           { src: `${base}pwa-maskable-512x512.png`, sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
         screenshots: [
