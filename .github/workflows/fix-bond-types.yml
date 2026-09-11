@@ -21,20 +21,8 @@ jobs:
           app = Path('src/App.tsx')
           text = app.read_text()
           old = "const handleCompleteBondScene = (sceneId: string, reward: any) => {"
-          new = """const handleCompleteBondScene = (scene: BondScene, earnedAffection: number, statGains?: { stat: 'might' | 'cunning' | 'authority' | 'piety'; value: number }) => {
-            const sceneId = scene.id;
-            const reward = scene.reward;
-            const activeSceneNpcId = scene.npcId;
-            const rewardAffection = earnedAffection;
-            const rewardStat = statGains;
-            const rewardPerk = reward.perkId;
-            const rewardCopper = reward.copperBonus || 0;
-            const rewardEnergy = reward.maxEnergyBonus || 0;
-          };"""
-          # Replace the handler body separately so the existing surrounding code is retained.
           start = text.index(old)
           end = text.index("\n  // Commit Crime", start)
-          body = text[start:end]
           replacement = '''const handleCompleteBondScene = (scene: BondScene, earnedAffection: number, statGains?: { stat: 'might' | 'cunning' | 'authority' | 'piety'; value: number }) => {
             const sceneId = scene.id;
             const reward = scene.reward;
@@ -60,7 +48,7 @@ jobs:
 
               if (earnedAffection > 0) {
                 setNpcs((prevNpcs) => prevNpcs.map((n) =>
-                  n.id === activeSceneNpcId
+                  n.id === scene.npcId
                     ? { ...n, affection: Math.min(100, (n.affection || 0) + earnedAffection) }
                     : n
                 ));
@@ -87,7 +75,13 @@ jobs:
           d = d.replace("reactionEmotion: 'determined'", "reactionEmotion: 'serious'")
           data.write_text(d)
           PY
-      - name: Commit fixes
+      - name: Install dependencies
+        run: npm install
+      - name: Type check
+        run: npm run lint
+      - name: Production build
+        run: npm run build
+      - name: Commit validated fixes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
