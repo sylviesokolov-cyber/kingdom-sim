@@ -43,7 +43,7 @@ export function simulateEconomy(
     production[npc.managedResource] = (production[npc.managedResource] || 0) + output;
   }
 
-  const nextPrices = marketPrices.map((market) => {
+  const nextPrices = marketPrices.map((market): MarketPrice => {
     const output = production[market.resourceId] || 0;
     const normalizedOutput = Math.min(100, output * 4);
     const pressure = 50 - normalizedOutput;
