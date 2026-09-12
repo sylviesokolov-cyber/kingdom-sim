@@ -1,9 +1,18 @@
 # Kingdom Sim — Development Status
 
-> Update this file after meaningful development. Use `[x]` only for work verified in the repository; use `[~]` for partial/foundation work; use `[ ]` for planned work.
+> Update this file after meaningful development. Use `[x]` only for work verified in the repository; use `[~]` for partial/foundation work; use `[ ]` for planned work. CI must be verified for the exact resulting commit before a milestone is marked complete.
 
 ## Current milestone
-**Phase 1 — Foundation Stabilization**
+**Phase 2 — Simulation Core (active)**
+
+## Product direction
+- [x] Mobile-first landscape game shell
+- [x] PWA landscape orientation retained
+- [x] Safe-area support
+- [x] Thumb-friendly bottom navigation sizing
+- [x] Premium anime-gacha dark/gold visual direction
+- [x] Illustration-first Throne/Home composition
+- [x] Reference-inspired top HUD / left rail / dialogue / companion panel / bottom dock
 
 ## Project snapshot
 - [x] React + TypeScript + Vite application exists
@@ -11,22 +20,21 @@
 - [x] Persistent AI development context added
 - [x] Game design/story baseline documented
 - [x] Development roadmap documented
-- [~] Fresh-save end-to-end playthrough pending runtime verification
-- [~] Automated build/lint status running after latest repository changes
-- [x] Mobile-first landscape game shell styling added
-- [x] PWA landscape orientation already configured and retained
-- [x] Safe-area support added to the game shell
-- [x] Thumb-friendly bottom navigation sizing added
-- [x] Cinematic throne-stage visual hierarchy added
-- [x] Build 2 throne/home stage redesigned around illustration-first landscape composition
-- [x] Build 2 compact companion command card with portrait, dialogue, stats and bond CTA
-- [x] Build 2 retinue selector for switching active companions
-- [x] Build 2 audience choices for rumor/report/praise interactions
-- [x] Build 2 next-day command and kingdom-health quick action
-- [x] Build 2 distress alert routes to NPC management
+- [~] Fresh-save end-to-end playthrough pending full runtime verification
+- [x] Latest centralized day simulation integrated into `App.tsx`
+- [~] Latest Phase 2 simulation/economy changes require exact CI verification before milestone completion
 - [x] Character image fallback added to reduce broken-art failures
-- [~] Pure daily simulation engine extracted; App integration remains
-- [~] Versioned save migration/serialization foundation added; App integration remains
+- [~] Versioned save migration/serialization foundation added; full App load/write integration remains
+
+## Build 2 — Throne / Home
+- [x] Illustration-first landscape stage
+- [x] Active companion card with portrait, dialogue, stats and bond CTA
+- [x] Retinue selector for switching active companions
+- [x] Audience choices for rumor/report/praise interactions
+- [x] Next-day command and kingdom-health quick action
+- [x] Distress alert routing to NPC management
+- [x] Character-art fallback handling
+- [x] Duplicate legacy bottom navigation hidden on Throne/Home
 
 ## Existing gameplay systems
 - [x] Player social rank progression model
@@ -53,6 +61,29 @@
 - [x] Bond scene framework
 - [x] Browser localStorage save/load
 
+## Phase 1 — Foundation stabilization
+- [x] Pure daily simulation module extracted
+- [x] Centralized daily simulation integrated into `App.tsx`
+- [x] Market trend type correctness fixed
+- [~] Versioned save migration/serialization foundation
+- [ ] Integrate versioned migration into the active save load/write paths
+- [ ] Complete fresh-save multi-day runtime playtest
+- [ ] Verify all major tabs/actions from a fresh save
+
+## Phase 2 — Simulation Core
+**Status: ACTIVE**
+- [x] Central daily simulation pipeline exists
+- [x] NPC condition -> efficiency processing exists
+- [x] Initial NPC/kingdom condition effects exist
+- [~] NPC production -> explicit resource supply pipeline
+- [~] Supply -> market price relationship
+- [ ] Consumption model and shortages/surpluses
+- [ ] Population welfare effects from resource availability
+- [ ] Stronger kingdom unrest/prosperity feedback loop
+- [ ] Season-specific production/price/health/event modifiers
+- [ ] Focused deterministic simulation tests
+- [ ] Player-visible explanations of major simulation changes
+
 ## Existing content
 - [x] Valenreach setting
 - [x] Water / aqueduct supply line
@@ -71,27 +102,37 @@
 - [~] Larger mystery threads exist but are not yet unified into a complete main-story campaign
 
 ## Major gaps to resolve
-- [ ] Verify the exact fresh-save tutorial/onboarding path
+- [ ] Fresh-save tutorial/onboarding verification
 - [ ] Verify every major tab is reachable and functional from a fresh save
-- [~] Centralize daily simulation rules
+- [~] Complete daily simulation centralization
 - [~] Reduce game-rule logic embedded in UI components
 - [~] Formalize save schema versioning/migrations
+- [ ] Connect production, consumption, economy, population, and kingdom stats into one coherent simulation
 - [ ] Add stronger relationship dimensions beyond affection/loyalty
 - [ ] Implement persistent faction behavior
 - [ ] Implement political choices with persistent consequences
-- [ ] Connect NPC production, economy, population, and kingdom stats into one coherent simulation
 - [ ] Implement multi-day crises
 - [ ] Implement data-driven main story chapters/quests
 - [ ] Implement succession/endgame routes
 - [ ] Implement authored ending states
 
 ## Current priority queue
-1. **Complete Phase 1 audit and playtest.** Record every screen, action, error, confusing interaction, and unreachable feature.
-2. **Build/lint verification.** Fix compile/type errors before deeper feature work.
-3. **Integrate the extracted daily simulation engine into the existing App state transitions.**
-4. **Integrate versioned save migration into load/write paths without losing existing saves.**
-5. **Fix highest-impact loop issues, especially day/season/NPC/economy consistency.**
-6. **Then begin Phase 2 — Simulation Core and expand the Character Roster/Profile visual pass.**
+1. **Verify the latest Phase 2 changes in GitHub Actions.** Wait for queued/in-progress runs; inspect and fix failures rather than declaring completion prematurely.
+2. **Finish Phase 1 save integration and fresh-save playtest.** Preserve `valenreach_save_v1` progress while introducing deliberate migration handling.
+3. **Complete Phase 2 simulation chain:** NPC condition -> production -> supply -> consumption/shortage -> market -> kingdom consequences.
+4. **Add season modifiers and deterministic tests.**
+5. **Add player-facing simulation feedback so the player understands why prices, welfare, unrest, and prosperity change.**
+6. **Then move to Phase 3 player life progression and Phase 4 Character System 2.0.**
+
+## CI verification policy
+For each meaningful development commit:
+- [ ] Identify the workflow run generated by the exact latest commit.
+- [ ] Wait/poll while queued or in progress.
+- [ ] Inspect failed job/log output if unsuccessful.
+- [ ] Push a fix if needed and repeat.
+- [ ] Verify build/lint success.
+- [ ] Verify deployment success when production-facing changes are involved.
+- [ ] Only then mark the relevant work `[x]`.
 
 ## Playtest log
 
@@ -117,10 +158,9 @@ Record:
 ## Change log
 
 ### 2026-09-12
-- Added `AGENTS.md` with persistent AI development rules and source-of-truth guidance.
-- Added `docs/GAME_BIBLE.md` with implemented-feature baseline and target narrative/design context.
-- Added `docs/DEVELOPMENT_PLAN.md` with ordered roadmap and definition of done.
-- Added this living development tracker.
-- Added the first mobile-first landscape UI foundation: cinematic game shell, compact HUD treatment, right-side companion panel treatment, thumb-friendly bottom dock, safe-area handling, and portrait fallback.
-- Added Build 2 Throne/Home: illustration-first landscape stage, active companion card, dialogue/audience choices, RPG stat strip, bond-ready CTA, retinue selector, next-day control, kingdom-health shortcut, distress alert, and character-art fallback handling.
-- Started Phase 1 foundation stabilization with a pure daily simulation module and versioned save migration/serialization module, preserving the existing App/UI while preparing incremental integration.
+- Updated persistent AI development rules to make mobile landscape PWA and anime-gacha presentation explicit.
+- Added a hard CI verification gate: wait for the exact latest run, inspect failures, fix, and re-check before reporting completion.
+- Updated the Game Bible with the current Throne/Home presentation direction and connected simulation chain.
+- Updated the Development Plan with the active Phase 2 implementation sequence and verification workflow.
+- Integrated the centralized daily simulation engine into `App.tsx`.
+- Began Phase 2 work on connecting production, supply, market, and kingdom consequences.
