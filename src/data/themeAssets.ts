@@ -1,2 +1,2 @@
-// Cinematic Home reference background, bundled locally for GitHub Pages.
-export const CONCEPT_BG = '/backgrounds/home_caren_cinematic.svg';
+// Main Home screen background from the game's public character background assets.
+export const CONCEPT_BG = '/characters/backgrounds/main_screen_background.jpg';
