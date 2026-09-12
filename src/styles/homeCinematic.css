@@ -1,0 +1,25 @@
+/* Home screen — cinematic reference treatment */
+.ks-home{background:#07060b!important}
+.ks-home-bg{background-size:cover!important;background-position:center center!important;filter:saturate(.96) brightness(.78)!important;transform:none!important}
+.ks-home-vignette{background:linear-gradient(90deg,rgba(5,4,8,.62) 0%,rgba(5,4,8,.10) 30%,rgba(5,4,8,.04) 58%,rgba(5,4,8,.66) 100%),linear-gradient(0deg,rgba(5,4,8,.78) 0%,rgba(5,4,8,.08) 32%,rgba(5,4,8,.28) 100%)!important}
+.ks-home-content{padding:0 390px 76px 92px!important}
+.ks-location-label{position:absolute!important;right:405px!important;top:104px!important;z-index:10!important;font:13px Cinzel,serif!important;letter-spacing:.14em!important;color:#ead8b9!important;text-shadow:0 2px 8px #000!important;opacity:.9!important}
+.ks-hero-character{inset:0 390px 0 88px!important;pointer-events:none!important}
+.ks-character-aura{display:none!important}
+.ks-character-button{pointer-events:none!important;width:100%!important}
+.ks-character-button img{display:none!important}
+.ks-dialogue-box{left:17%!important;bottom:7%!important;width:min(410px,58%)!important;padding:12px 18px!important;background:linear-gradient(90deg,rgba(8,6,10,.91),rgba(14,10,16,.76))!important;border:1px solid rgba(217,174,85,.34)!important;box-shadow:0 10px 28px #000b!important}
+.ks-dialogue-name{font-size:16px!important;color:#f5e7d2!important}
+.ks-dialogue-box p{font-size:17px!important;color:#f1e7de!important}
+.ks-fate-card{left:8px!important;bottom:10px!important;width:285px!important;height:108px!important;background:rgba(12,9,14,.91)!important;border:1px solid rgba(217,174,85,.45)!important}
+.ks-matters-card{right:405px!important;bottom:14px!important;width:275px!important;background:rgba(12,9,14,.90)!important;border:1px solid rgba(217,174,85,.30)!important}
+.ks-companion-panel{right:10px!important;top:76px!important;bottom:84px!important;width:360px!important;padding:14px!important;background:linear-gradient(150deg,rgba(20,15,22,.91),rgba(7,6,11,.90))!important;border:1px solid rgba(217,174,85,.48)!important;box-shadow:0 20px 50px #000b!important}
+.ks-companion-head{padding-bottom:10px!important}
+.ks-companion-head h2{font-size:23px!important}
+.ks-companion-actions .active{background:linear-gradient(180deg,#d96d7e,#8b394d)!important}
+.ks-bottom-dock{height:82px!important;background:linear-gradient(180deg,rgba(8,6,11,.78),rgba(5,4,8,.98))!important;border-top:1px solid rgba(217,174,85,.45)!important}
+.ks-bottom-tabs button.selected{color:#f5d99c!important;background:linear-gradient(180deg,rgba(217,174,85,.13),rgba(118,55,70,.14))!important;border-color:rgba(217,174,85,.68)!important;box-shadow:inset 0 0 22px rgba(217,174,85,.07),0 0 18px rgba(217,174,85,.08)!important}
+.ks-next-day{height:66px!important;min-width:250px!important;border:1px solid rgba(217,174,85,.62)!important;border-radius:14px!important;background:linear-gradient(145deg,rgba(32,24,29,.95),rgba(12,9,14,.96))!important;color:#f0d28a!important;font:700 16px Cinzel,serif!important}
+.ks-ambition-strip{top:5px!important;left:100px!important;right:405px!important}
+.ks-retinue-button{right:382px!important}
+@media(max-width:900px){.ks-home-content{padding:0 10px 72px 10px!important}.ks-companion-panel{width:min(360px,calc(100% - 20px))!important;top:auto!important;bottom:78px!important;max-height:52%!important}.ks-location-label,.ks-matters-card,.ks-ambition-strip,.ks-retinue-button{display:none!important}.ks-dialogue-box{left:6%!important;bottom:55%!important;width:58%!important}.ks-fate-card{display:none!important}.ks-bottom-dock{height:72px!important}.ks-next-day{min-width:110px!important;font-size:11px!important}}
