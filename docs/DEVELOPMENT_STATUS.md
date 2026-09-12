@@ -3,7 +3,7 @@
 > Update this file after meaningful development. Use `[x]` only for work verified in the repository; use `[~]` for partial/foundation work; use `[ ]` for planned work.
 
 ## Current milestone
-**Build 2 — Throne / Home 2.0 Mobile Landscape**
+**Phase 1 — Foundation Stabilization**
 
 ## Project snapshot
 - [x] React + TypeScript + Vite application exists
@@ -12,7 +12,7 @@
 - [x] Game design/story baseline documented
 - [x] Development roadmap documented
 - [~] Fresh-save end-to-end playthrough pending runtime verification
-- [ ] Automated build/lint status verified after latest repository changes
+- [~] Automated build/lint status running after latest repository changes
 - [x] Mobile-first landscape game shell styling added
 - [x] PWA landscape orientation already configured and retained
 - [x] Safe-area support added to the game shell
@@ -25,6 +25,8 @@
 - [x] Build 2 next-day command and kingdom-health quick action
 - [x] Build 2 distress alert routes to NPC management
 - [x] Character image fallback added to reduce broken-art failures
+- [~] Pure daily simulation engine extracted; App integration remains
+- [~] Versioned save migration/serialization foundation added; App integration remains
 
 ## Existing gameplay systems
 - [x] Player social rank progression model
@@ -71,9 +73,9 @@
 ## Major gaps to resolve
 - [ ] Verify the exact fresh-save tutorial/onboarding path
 - [ ] Verify every major tab is reachable and functional from a fresh save
-- [ ] Centralize daily simulation rules
-- [ ] Reduce game-rule logic embedded in UI components
-- [ ] Formalize save schema versioning/migrations
+- [~] Centralize daily simulation rules
+- [~] Reduce game-rule logic embedded in UI components
+- [~] Formalize save schema versioning/migrations
 - [ ] Add stronger relationship dimensions beyond affection/loyalty
 - [ ] Implement persistent faction behavior
 - [ ] Implement political choices with persistent consequences
@@ -84,12 +86,12 @@
 - [ ] Implement authored ending states
 
 ## Current priority queue
-1. **Play the existing game from a fresh save.** Record every screen, action, error, confusing interaction, and unreachable feature.
+1. **Complete Phase 1 audit and playtest.** Record every screen, action, error, confusing interaction, and unreachable feature.
 2. **Build/lint verification.** Fix compile/type errors before deeper feature work.
-3. **Gameplay loop stabilization.** Ensure day advancement, jobs, market, NPC condition, events, relationships, and saving behave consistently.
-4. **Simulation extraction.** Move daily rules into testable engine functions.
-5. **Player-facing onboarding.** Make the first several in-game days understandable and purposeful.
-6. **Build the redesigned visual system screen-by-screen**, with Throne/Home now at Build 2 and Character Roster/Profile next.
+3. **Integrate the extracted daily simulation engine into the existing App state transitions.**
+4. **Integrate versioned save migration into load/write paths without losing existing saves.**
+5. **Fix highest-impact loop issues, especially day/season/NPC/economy consistency.**
+6. **Then begin Phase 2 — Simulation Core and expand the Character Roster/Profile visual pass.**
 
 ## Playtest log
 
@@ -121,3 +123,4 @@ Record:
 - Added this living development tracker.
 - Added the first mobile-first landscape UI foundation: cinematic game shell, compact HUD treatment, right-side companion panel treatment, thumb-friendly bottom dock, safe-area handling, and portrait fallback.
 - Added Build 2 Throne/Home: illustration-first landscape stage, active companion card, dialogue/audience choices, RPG stat strip, bond-ready CTA, retinue selector, next-day control, kingdom-health shortcut, distress alert, and character-art fallback handling.
+- Started Phase 1 foundation stabilization with a pure daily simulation module and versioned save migration/serialization module, preserving the existing App/UI while preparing incremental integration.
