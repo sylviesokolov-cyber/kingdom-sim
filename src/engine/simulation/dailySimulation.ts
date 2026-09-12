@@ -93,13 +93,19 @@ export function simulateDay(input: DailySimulationInput, random: RandomSource = 
     treasuryGold: input.kingdom.treasuryGold + 25,
   };
 
-  const marketPrices = input.marketPrices.map((marketPrice) => {
+  const marketPrices: MarketPrice[] = input.marketPrices.map((marketPrice): MarketPrice => {
     const delta = (random() - 0.5) * 4;
     const currentPrice = Math.max(1, Math.round(marketPrice.basePrice + delta));
+    const trend: MarketPrice['trend'] = currentPrice > marketPrice.currentPrice
+      ? 'up'
+      : currentPrice < marketPrice.currentPrice
+        ? 'down'
+        : 'steady';
+
     return {
       ...marketPrice,
       currentPrice,
-      trend: currentPrice > marketPrice.currentPrice ? 'up' : currentPrice < marketPrice.currentPrice ? 'down' : 'steady',
+      trend,
     };
   });
 
