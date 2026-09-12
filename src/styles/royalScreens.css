@@ -19,9 +19,7 @@ main.flex-1:not(:has(.ks-home)) {
   position: relative !important;
   isolation: isolate;
   overflow: hidden !important;
-  background:
-    radial-gradient(circle at 50% 8%, rgba(113, 63, 78, 0.24), transparent 38%),
-    linear-gradient(135deg, #09070e 0%, #130c15 48%, #07070c 100%) !important;
+  background: radial-gradient(circle at 50% 8%, rgba(113, 63, 78, 0.24), transparent 38%), linear-gradient(135deg, #09070e 0%, #130c15 48%, #07070c 100%) !important;
 }
 
 main.flex-1:not(:has(.ks-home))::before {
@@ -29,11 +27,7 @@ main.flex-1:not(:has(.ks-home))::before {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    radial-gradient(ellipse at 50% 22%, rgba(217, 174, 85, 0.08), transparent 42%),
-    linear-gradient(115deg, rgba(87, 37, 58, 0.32), transparent 35%, rgba(47, 38, 65, 0.24)),
-    repeating-linear-gradient(90deg, transparent 0 88px, rgba(217, 174, 85, 0.018) 89px 90px),
-    linear-gradient(180deg, #1a1019 0%, #0b0910 72%, #06060a 100%);
+  background: radial-gradient(ellipse at 50% 22%, rgba(217, 174, 85, 0.08), transparent 42%), linear-gradient(115deg, rgba(87, 37, 58, 0.32), transparent 35%, rgba(47, 38, 65, 0.24)), repeating-linear-gradient(90deg, transparent 0 88px, rgba(217, 174, 85, 0.018) 89px 90px), linear-gradient(180deg, #1a1019 0%, #0b0910 72%, #06060a 100%);
   filter: saturate(0.82);
 }
 
@@ -43,9 +37,7 @@ main.flex-1:not(:has(.ks-home))::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(4, 4, 8, 0.76), transparent 18%, transparent 82%, rgba(4, 4, 8, 0.76)),
-    linear-gradient(0deg, rgba(4, 4, 8, 0.92), transparent 26%, rgba(4, 4, 8, 0.32));
+  background: linear-gradient(90deg, rgba(4, 4, 8, 0.76), transparent 18%, transparent 82%, rgba(4, 4, 8, 0.76)), linear-gradient(0deg, rgba(4, 4, 8, 0.92), transparent 26%, rgba(4, 4, 8, 0.32));
 }
 
 main.flex-1:not(:has(.ks-home)) > div:first-child {
@@ -58,10 +50,7 @@ main.flex-1:not(:has(.ks-home)) > div:first-child {
   padding: 14px 16px 92px !important;
 }
 main.flex-1:not(:has(.ks-home)) > div:first-child::-webkit-scrollbar { width: 6px; }
-main.flex-1:not(:has(.ks-home)) > div:first-child::-webkit-scrollbar-thumb {
-  background: rgba(217, 174, 85, 0.42);
-  border-radius: 999px;
-}
+main.flex-1:not(:has(.ks-home)) > div:first-child::-webkit-scrollbar-thumb { background: rgba(217, 174, 85, 0.42); border-radius: 999px; }
 
 main.flex-1:not(:has(.ks-home)) .bg-slate-950,
 main.flex-1:not(:has(.ks-home)) .bg-slate-950\/70,
@@ -78,27 +67,18 @@ main.flex-1:not(:has(.ks-home)) .bg-slate-900\/90 {
 
 main.flex-1:not(:has(.ks-home)) .bg-gradient-to-r,
 main.flex-1:not(:has(.ks-home)) .bg-gradient-to-br,
-main.flex-1:not(:has(.ks-home)) .bg-gradient-to-b {
-  background-image: linear-gradient(145deg, rgba(28, 20, 31, 0.97), rgba(9, 8, 14, 0.96)) !important;
-}
+main.flex-1:not(:has(.ks-home)) .bg-gradient-to-b { background-image: linear-gradient(145deg, rgba(28, 20, 31, 0.97), rgba(9, 8, 14, 0.96)) !important; }
 
 main.flex-1:not(:has(.ks-home)) [class*="border-slate-8"],
 main.flex-1:not(:has(.ks-home)) [class*="border-slate-7"],
 main.flex-1:not(:has(.ks-home)) [class*="border-indigo-"],
 main.flex-1:not(:has(.ks-home)) [class*="border-cyan-"],
-main.flex-1:not(:has(.ks-home)) [class*="border-emerald-"] {
-  border-color: rgba(217, 174, 85, 0.18) !important;
-}
+main.flex-1:not(:has(.ks-home)) [class*="border-emerald-"] { border-color: rgba(217, 174, 85, 0.18) !important; }
 
 main.flex-1:not(:has(.ks-home)) h1,
 main.flex-1:not(:has(.ks-home)) h2,
 main.flex-1:not(:has(.ks-home)) h3,
-main.flex-1:not(:has(.ks-home)) h4 {
-  color: var(--ks-cream) !important;
-  font-family: Cinzel, "Times New Roman", serif !important;
-  letter-spacing: 0.025em;
-}
-
+main.flex-1:not(:has(.ks-home)) h4 { color: var(--ks-cream) !important; font-family: Cinzel, "Times New Roman", serif !important; letter-spacing: 0.025em; }
 main.flex-1:not(:has(.ks-home)) .text-slate-100,
 main.flex-1:not(:has(.ks-home)) .text-slate-200,
 main.flex-1:not(:has(.ks-home)) .text-slate-300 { color: #e9dfd7 !important; }
@@ -106,68 +86,126 @@ main.flex-1:not(:has(.ks-home)) .text-slate-400,
 main.flex-1:not(:has(.ks-home)) .text-slate-500 { color: #a99ea0 !important; }
 main.flex-1:not(:has(.ks-home)) .text-amber-300,
 main.flex-1:not(:has(.ks-home)) .text-amber-400 { color: var(--ks-gold-hi) !important; }
-
 main.flex-1:not(:has(.ks-home)) .text-indigo-300,
 main.flex-1:not(:has(.ks-home)) .text-indigo-400,
 main.flex-1:not(:has(.ks-home)) .text-cyan-300,
 main.flex-1:not(:has(.ks-home)) .text-cyan-400,
 main.flex-1:not(:has(.ks-home)) .text-emerald-300,
 main.flex-1:not(:has(.ks-home)) .text-emerald-400 { color: #d8b7c0 !important; }
-
 main.flex-1:not(:has(.ks-home)) .bg-slate-800,
 main.flex-1:not(:has(.ks-home)) .bg-slate-700 { background: #30252f !important; }
 
 main.flex-1:not(:has(.ks-home)) button.bg-amber-500,
 main.flex-1:not(:has(.ks-home)) button.bg-amber-600,
 main.flex-1:not(:has(.ks-home)) button[class*="bg-amber-500"],
-main.flex-1:not(:has(.ks-home)) button[class*="bg-amber-600"] {
-  background: linear-gradient(180deg, #c68a42, #7d3f49) !important;
-  border-color: rgba(240, 210, 138, 0.55) !important;
-  color: #fff7ec !important;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35), inset 0 1px rgba(255,255,255,0.12);
-}
+main.flex-1:not(:has(.ks-home)) button[class*="bg-amber-600"] { background: linear-gradient(180deg, #c68a42, #7d3f49) !important; border-color: rgba(240, 210, 138, 0.55) !important; color: #fff7ec !important; box-shadow: 0 8px 18px rgba(0,0,0,0.35), inset 0 1px rgba(255,255,255,0.12); }
+main.flex-1:not(:has(.ks-home)) button[class*="border-amber"]:not([disabled]):hover { box-shadow: 0 0 18px rgba(217,174,85,0.16); }
 
-main.flex-1:not(:has(.ks-home)) button[class*="border-amber"]:not([disabled]):hover {
-  box-shadow: 0 0 18px rgba(217,174,85,0.16);
-}
+nav.sticky.bottom-0 { height: 78px !important; padding: 7px 12px 8px !important; background: linear-gradient(180deg, rgba(8,7,13,0.88), rgba(7,6,12,0.98)) !important; border-top: 1px solid rgba(217,174,85,0.28) !important; box-shadow: 0 -12px 32px rgba(0,0,0,0.48) !important; backdrop-filter: blur(18px); z-index: 50 !important; }
+nav.sticky.bottom-0 button { min-height: 58px !important; border: 1px solid transparent !important; border-radius: 12px !important; color: #9f9698 !important; background: transparent !important; font-family: Cinzel, "Times New Roman", serif !important; font-size: 10px !important; }
+nav.sticky.bottom-0 button:hover, nav.sticky.bottom-0 button:focus-visible { color: var(--ks-gold-hi) !important; border-color: rgba(217,174,85,0.25) !important; background: rgba(217,174,85,0.06) !important; }
+.fixed.inset-0.z-50 { background: rgba(3, 3, 7, 0.82) !important; backdrop-filter: blur(12px); }
+.fixed.inset-0.z-50 > div { border-color: rgba(217,174,85,0.38) !important; background: linear-gradient(145deg, rgba(28,20,31,0.98), rgba(8,7,13,0.98)) !important; box-shadow: 0 28px 70px rgba(0,0,0,0.72), inset 0 1px rgba(255,255,255,0.035) !important; }
 
-nav.sticky.bottom-0 {
-  height: 78px !important;
-  padding: 7px 12px 8px !important;
-  background: linear-gradient(180deg, rgba(8,7,13,0.88), rgba(7,6,12,0.98)) !important;
-  border-top: 1px solid rgba(217,174,85,0.28) !important;
-  box-shadow: 0 -12px 32px rgba(0,0,0,0.48) !important;
-  backdrop-filter: blur(18px);
-  z-index: 50 !important;
-}
-nav.sticky.bottom-0 button {
-  min-height: 58px !important;
-  border: 1px solid transparent !important;
-  border-radius: 12px !important;
-  color: #9f9698 !important;
-  background: transparent !important;
-  font-family: Cinzel, "Times New Roman", serif !important;
-  font-size: 10px !important;
-}
-nav.sticky.bottom-0 button:hover,
-nav.sticky.bottom-0 button:focus-visible {
-  color: var(--ks-gold-hi) !important;
-  border-color: rgba(217,174,85,0.25) !important;
-  background: rgba(217,174,85,0.06) !important;
-}
+/* Kingdom / Districts — cinematic composition */
+.ks-kingdom-screen { position: relative; min-height: 100%; color: var(--ks-cream); overflow: hidden; isolation: isolate; }
+.ks-kingdom-bg { position: absolute; inset: 0; z-index: -3; background-size: cover; background-position: center; filter: saturate(.7) brightness(.45); transform: scale(1.04); }
+.ks-kingdom-vignette { position: absolute; inset: 0; z-index: -2; pointer-events: none; background: linear-gradient(90deg, rgba(7,6,11,.96) 0%, rgba(7,6,11,.78) 25%, rgba(9,7,13,.42) 58%, rgba(6,5,10,.9) 100%), linear-gradient(180deg, rgba(7,5,10,.75), transparent 30%, rgba(6,5,10,.96) 100%); }
+.ks-kingdom-content { position: relative; padding: 12px 14px 28px; max-width: 1400px; margin: 0 auto; }
+.ks-kingdom-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 2px 4px 12px; border-bottom: 1px solid rgba(217,174,85,.18); }
+.ks-eyebrow { display: flex; align-items: center; gap: 7px; color: var(--ks-gold-hi); font: 700 9px Cinzel, serif; letter-spacing: .22em; text-transform: uppercase; }
+.ks-eyebrow svg { width: 15px; height: 15px; }
+.ks-kingdom-heading h1 { margin: 2px 0 0; font: 700 clamp(25px, 4vw, 40px) Cinzel, serif; letter-spacing: .04em; text-shadow: 0 4px 22px #000; }
+.ks-kingdom-heading p { margin: 2px 0 0; color: #c0b5b2; font: 12px Cormorant Garamond, serif; }
+.ks-kingdom-heading p span { color: var(--ks-gold); margin: 0 5px; }
+.ks-kingdom-summary { display: flex; gap: 9px; }
+.ks-kingdom-summary > div { min-width: 105px; padding: 8px 11px; border: 1px solid rgba(217,174,85,.25); border-radius: 9px; background: rgba(12,9,15,.72); box-shadow: inset 0 1px rgba(255,255,255,.035); }
+.ks-kingdom-summary svg { width: 13px; color: var(--ks-gold); vertical-align: -2px; margin-right: 5px; }
+.ks-kingdom-summary span { color: #a99ea0; font-size: 8px; text-transform: uppercase; letter-spacing: .12em; }
+.ks-kingdom-summary b { display: block; margin-top: 2px; color: var(--ks-cream); font: 700 14px Cinzel, serif; }
 
-.fixed.inset-0.z-50 {
-  background: rgba(3, 3, 7, 0.82) !important;
-  backdrop-filter: blur(12px);
-}
-.fixed.inset-0.z-50 > div {
-  border-color: rgba(217,174,85,0.38) !important;
-  background: linear-gradient(145deg, rgba(28,20,31,0.98), rgba(8,7,13,0.98)) !important;
-  box-shadow: 0 28px 70px rgba(0,0,0,0.72), inset 0 1px rgba(255,255,255,0.035) !important;
-}
+.ks-kingdom-grid { display: grid; grid-template-columns: minmax(230px, .62fr) minmax(420px, 1.38fr); gap: 10px; margin-top: 10px; }
+.ks-kingdom-vitals-panel, .ks-district-panel, .ks-supply-panel { border: 1px solid rgba(217,174,85,.25); background: linear-gradient(145deg, rgba(22,17,24,.9), rgba(7,7,12,.86)); box-shadow: inset 0 1px rgba(255,255,255,.035), 0 18px 38px rgba(0,0,0,.36); backdrop-filter: blur(14px); }
+.ks-kingdom-vitals-panel, .ks-district-panel { border-radius: 12px; padding: 12px; }
+.ks-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.ks-section-heading > div { display: flex; align-items: center; gap: 7px; font: 700 13px Cinzel, serif; color: var(--ks-cream); }
+.ks-section-heading svg { width: 17px; height: 17px; color: var(--ks-gold-hi); }
+.ks-section-heading small { color: #82777b; font-size: 7px; letter-spacing: .18em; }
+.ks-vital-list { display: grid; gap: 9px; margin-top: 11px; }
+.ks-vital { padding: 7px 8px; border: 1px solid rgba(255,255,255,.07); border-radius: 7px; background: rgba(7,7,12,.5); }
+.ks-vital-top { display: flex; justify-content: space-between; align-items: center; color: #d8ceca; font-size: 10px; }
+.ks-vital-top span { display: flex; align-items: center; gap: 6px; }
+.ks-vital-top svg { width: 13px; height: 13px; color: #d8b0ba; }
+.ks-vital-top b { color: var(--ks-gold-hi); font: 700 10px Inter, sans-serif; }
+.ks-vital-top b.danger { color: var(--ks-rose); }
+.ks-vital-track { height: 5px; margin-top: 6px; overflow: hidden; border-radius: 99px; background: #2c252e; }
+.ks-vital-track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8d5261, #f0d28a); box-shadow: 0 0 8px rgba(217,174,85,.2); }
+.ks-vital-track i.danger { background: linear-gradient(90deg, #6d263d, #ef8190); }
+.ks-vitals-action { width: 100%; min-height: 38px; margin-top: 11px; padding: 0 10px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(217,174,85,.24); border-radius: 7px; background: linear-gradient(180deg, rgba(45,31,29,.72), rgba(20,14,20,.9)); color: #dfd3cd; font: 700 9px Cinzel, serif; }
+.ks-vitals-action svg { width: 14px; color: var(--ks-gold); }
+
+.ks-district-strip { display: flex; gap: 6px; overflow-x: auto; padding: 9px 0 10px; scrollbar-width: none; }
+.ks-district-strip::-webkit-scrollbar { display: none; }
+.ks-district-tab { position: relative; flex: 0 0 auto; min-width: 67px; min-height: 54px; padding: 5px 7px; border: 1px solid rgba(255,255,255,.09); border-radius: 8px; background: rgba(7,7,12,.55); color: #9f9698; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font: 8px Cinzel, serif; }
+.ks-district-tab:hover { color: #e7d9d1; border-color: rgba(217,174,85,.35); }
+.ks-district-tab.selected { color: var(--ks-gold-hi); border-color: rgba(240,210,138,.7); background: linear-gradient(180deg, rgba(101,59,45,.55), rgba(31,17,24,.85)); box-shadow: 0 0 18px rgba(217,174,85,.12), inset 0 1px rgba(255,255,255,.07); }
+.ks-district-tab i { position: absolute; right: 5px; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--ks-rose); box-shadow: 0 0 7px var(--ks-rose); }
+.ks-district-icon { width: 25px; height: 25px; display: grid; place-items: center; border: 1px solid rgba(217,174,85,.18); border-radius: 50%; background: #0c0a10; }
+.ks-district-icon svg { width: 14px; height: 14px; }
+
+.ks-district-feature { display: grid; grid-template-columns: minmax(210px, .8fr) minmax(260px, 1fr); min-height: 225px; overflow: hidden; border: 1px solid rgba(217,174,85,.18); border-radius: 9px; background: rgba(6,6,11,.62); }
+.ks-district-art { position: relative; min-height: 225px; background: linear-gradient(135deg, rgba(85,45,57,.32), rgba(15,12,19,.15)), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80') center/cover; }
+.ks-art-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,7,12,.15), rgba(8,7,12,.9)), linear-gradient(0deg, rgba(8,7,12,.82), transparent 60%); }
+.ks-district-art-copy { position: absolute; left: 15px; right: 12px; bottom: 14px; }
+.ks-district-art-copy span { color: var(--ks-gold); font-size: 7px; letter-spacing: .2em; }
+.ks-district-art-copy strong { display: block; margin-top: 2px; color: #fff3e8; font: 700 20px Cormorant Garamond, serif; line-height: .95; text-shadow: 0 3px 12px #000; }
+.ks-district-art-copy small { display: block; margin-top: 4px; color: #b8aba8; font-size: 8px; }
+.ks-district-detail { padding: 13px; display: flex; flex-direction: column; min-width: 0; }
+.ks-detail-title { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.ks-detail-title > div { display: flex; align-items: center; gap: 6px; color: #e8ddd6; font: 700 10px Cinzel, serif; }
+.ks-detail-title > div svg { width: 15px; color: var(--ks-gold); }
+.ks-detail-title > b { color: var(--ks-gold-hi); font-size: 9px; white-space: nowrap; }
+.ks-detail-title > b.danger { color: var(--ks-rose); }
+.ks-district-detail > p { margin: 8px 0; color: #afa3a2; font: 13px Cormorant Garamond, serif; line-height: 1.15; }
+.ks-detail-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.ks-detail-stats div { padding: 7px; border: 1px solid rgba(255,255,255,.07); background: rgba(0,0,0,.2); border-radius: 6px; }
+.ks-detail-stats span { display: block; color: #81777a; font-size: 7px; text-transform: uppercase; letter-spacing: .12em; }
+.ks-detail-stats b { display: block; margin-top: 2px; color: #e3d8d2; font-size: 9px; text-transform: capitalize; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ks-detail-stats b.danger { color: var(--ks-rose); }
+.ks-overseer-card { width: 100%; min-height: 48px; margin-top: auto; padding: 5px 7px; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(217,174,85,.2); border-radius: 7px; background: linear-gradient(90deg, rgba(30,21,28,.88), rgba(9,8,13,.8)); color: #fff; text-align: left; }
+.ks-overseer-card:hover { border-color: rgba(240,210,138,.55); }
+.ks-overseer-card > span { min-width: 0; flex: 1; }
+.ks-overseer-card b, .ks-overseer-card small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ks-overseer-card b { color: #eee4dc; font: 700 10px Cinzel, serif; }
+.ks-overseer-card small { margin-top: 1px; color: #9d9294; font-size: 8px; }
+.ks-overseer-card > svg { width: 14px; color: var(--ks-gold); }
+
+.ks-supply-panel { margin-top: 10px; border-radius: 10px; padding: 10px 12px; }
+.ks-supply-chain { display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 8px 0 2px; color: #cfc4c0; font-size: 9px; white-space: nowrap; scrollbar-width: none; }
+.ks-supply-chain::-webkit-scrollbar { display: none; }
+.ks-supply-chain > span, .ks-supply-chain > strong, .ks-supply-chain > em { display: flex; align-items: center; gap: 5px; padding: 6px 8px; border: 1px solid rgba(255,255,255,.07); border-radius: 6px; background: rgba(4,4,8,.45); }
+.ks-supply-chain svg { width: 12px; color: var(--ks-gold); }
+.ks-supply-chain b { color: #e7c98d; font-size: 8px; }
+.ks-supply-chain strong { color: #e9dfd7; font-family: Cinzel, serif; font-size: 8px; }
+.ks-supply-chain em { color: #d28a98; font-style: normal; font-size: 8px; }
+.ks-supply-chain > svg { width: 13px; color: #776c71; flex: none; }
 
 @media (max-width: 900px) {
   main.flex-1:not(:has(.ks-home)) > div:first-child { padding: 10px 10px 88px !important; }
   nav.sticky.bottom-0 { height: 72px !important; }
   nav.sticky.bottom-0 button { min-height: 54px !important; font-size: 9px !important; }
+  .ks-kingdom-heading { align-items: flex-start; }
+  .ks-kingdom-summary { display: none; }
+  .ks-kingdom-grid { grid-template-columns: 1fr; }
+  .ks-kingdom-vitals-panel { order: 2; }
+  .ks-district-panel { order: 1; }
+  .ks-district-feature { grid-template-columns: 1fr; }
+  .ks-district-art { min-height: 150px; }
+}
+
+@media (max-width: 620px) {
+  .ks-kingdom-content { padding: 9px 8px 20px; }
+  .ks-kingdom-heading h1 { font-size: 26px; }
+  .ks-kingdom-heading p { font-size: 11px; }
+  .ks-detail-stats { grid-template-columns: 1fr 1fr 1fr; }
 }
