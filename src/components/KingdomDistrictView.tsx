@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import { KingdomStats, NpcCharacter, ResourceItem } from '../types/game';
 import { AnimeAvatar } from './AnimeAvatar';
 import { sound } from '../utils/audio';
-import { 
-  Building2, 
-  Droplets, 
-  Wheat, 
-  Fish, 
-  Apple, 
-  Hammer, 
-  Sparkles, 
-  Shield, 
-  Coins, 
-  AlertTriangle, 
+import {
+  Building2,
+  Droplets,
+  Wheat,
+  Fish,
+  Apple,
+  Hammer,
+  Sparkles,
+  Shield,
+  Coins,
+  AlertTriangle,
   ArrowRight,
   TrendingUp,
-  HeartPulse
+  HeartPulse,
+  ChevronRight,
+  Map,
+  Crown,
+  Landmark,
+  Users,
 } from 'lucide-react';
 
 interface KingdomDistrictViewProps {
@@ -25,358 +30,245 @@ interface KingdomDistrictViewProps {
   onSelectNpc: (npc: NpcCharacter) => void;
 }
 
+const DISTRICT_BACKDROP =
+  'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=82';
+
 export const KingdomDistrictView: React.FC<KingdomDistrictViewProps> = ({
   kingdom,
   npcs,
   resources,
   onSelectNpc,
 }) => {
-  const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
+  const [selectedDistrict, setSelectedDistrict] = useState('farms');
 
   const districts = [
     {
       id: 'aqueduct',
       name: 'Upper Mountain Springs',
+      shortName: 'Aqueduct',
       subtitle: 'The Grand Aqueduct',
       npcId: 'mira',
       managedResource: 'water',
-      icon: <Droplets className="w-5 h-5 text-cyan-400" />,
-      color: 'from-cyan-950/80 to-slate-900 border-cyan-500/40',
-      description: 'Ancient stone viaducts channel pure glacial runoff into city cisterns.',
-      vitalImpact: 'Supplies 100% of urban drinking water and sanitation.',
-      outputRate: '120 jugs/day',
+      icon: Droplets,
+      description: 'Ancient stone viaducts channel glacial runoff into the royal cisterns.',
+      impact: 'Drinking water & sanitation',
+      outputRate: '120 jugs / day',
     },
     {
       id: 'farms',
       name: 'Sunmill Farmlands',
+      shortName: 'Farmlands',
       subtitle: 'Golden Fields & Silos',
       npcId: 'caren',
       managedResource: 'grain',
-      icon: <Wheat className="w-5 h-5 text-amber-400" />,
-      color: 'from-amber-950/80 to-slate-900 border-amber-500/40',
-      description: 'Vast amber fields of wheat and barley that supply all kingdom bread.',
-      vitalImpact: 'Fills the Royal Granary to prevent winter famines.',
-      outputRate: '95 sacks/day',
+      icon: Wheat,
+      description: 'Amber wheat and barley fields feed the city and fill the Royal Granary.',
+      impact: 'Food security & bread',
+      outputRate: '95 sacks / day',
     },
     {
       id: 'docks',
       name: 'Whistling Docks',
+      shortName: 'Docks',
       subtitle: 'River Harbor & Basin',
       npcId: 'bran',
       managedResource: 'fish',
-      icon: <Fish className="w-5 h-5 text-sky-400" />,
-      color: 'from-sky-950/80 to-slate-900 border-sky-500/40',
-      description: 'River cutters net silver trout daily, provisioning poor soup kitchens.',
-      vitalImpact: 'Supplements staple grains with essential proteins.',
-      outputRate: '75 crates/day',
+      icon: Fish,
+      description: 'River cutters bring silver trout from the basin to the city markets.',
+      impact: 'Protein & trade supply',
+      outputRate: '75 crates / day',
     },
     {
       id: 'orchards',
-      name: 'Suncrest Orchards & Glades',
-      subtitle: 'Royal Greenhouses & Woods',
+      name: 'Suncrest Orchards',
+      shortName: 'Orchards',
+      subtitle: 'Royal Greenhouses & Glades',
       npcId: 'lyra',
       managedResource: 'fruits',
-      icon: <Apple className="w-5 h-5 text-emerald-400" />,
-      color: 'from-emerald-950/80 to-slate-900 border-emerald-500/40',
-      description: 'Terraced groves of sweet apples and wild medicinal herbs.',
-      vitalImpact: 'Base ingredients for Apothecary elixirs and vitamin health.',
-      outputRate: '60 baskets/day',
+      icon: Apple,
+      description: 'Terraced groves and woodland herbs provide food and alchemical ingredients.',
+      impact: 'Nutrition & medicines',
+      outputRate: '60 baskets / day',
     },
     {
       id: 'forge',
       name: 'The Artisan Quarter',
+      shortName: 'Forge',
       subtitle: 'The Great Molten Forge',
       npcId: 'torvin',
       managedResource: 'tools',
-      icon: <Hammer className="w-5 h-5 text-orange-400" />,
-      color: 'from-orange-950/80 to-slate-900 border-orange-500/40',
-      description: 'Foundries smelt mountain bog iron into agricultural tools and plate armor.',
-      vitalImpact: 'Boosts farming yields by 40% and equips garrison defenders.',
-      outputRate: '35 sets/day',
+      icon: Hammer,
+      description: 'Mountain iron is turned into tools, weapons and equipment for Valenreach.',
+      impact: 'Farming & garrison output',
+      outputRate: '35 sets / day',
     },
     {
       id: 'herbarium',
       name: 'Cathedral Courtyard',
+      shortName: 'Herbarium',
       subtitle: 'Royal Herbarium & Lab',
       npcId: 'elena',
       managedResource: 'medicine',
-      icon: <Sparkles className="w-5 h-5 text-pink-400" />,
-      color: 'from-pink-950/80 to-slate-900 border-pink-500/40',
-      description: 'Alchemical alembics refine rare mountain herbs into disease-halting tinctures.',
-      vitalImpact: 'Critical to curing plague outbreaks and treating injured officials.',
-      outputRate: '30 vials/day',
+      icon: Sparkles,
+      description: 'Rare herbs are refined into tinctures used to treat citizens and officials.',
+      impact: 'Public health & recovery',
+      outputRate: '30 vials / day',
     },
     {
       id: 'citadel',
       name: 'High Citadel Garrison',
+      shortName: 'Citadel',
       subtitle: 'The Iron Bastion',
       npcId: 'valerius',
       managedResource: 'security',
-      icon: <Shield className="w-5 h-5 text-indigo-400" />,
-      color: 'from-indigo-950/80 to-slate-900 border-indigo-500/40',
-      description: 'Fortress towers overlooking the mountain passes, deterring bandits and invaders.',
-      vitalImpact: 'Maintains civil law, suppresses crime, and guards trade caravans.',
+      icon: Shield,
+      description: 'Fortress towers guard the mountain passes and keep trade routes secure.',
+      impact: 'Order & defence',
       outputRate: '+50 patrol strength',
     },
     {
       id: 'bazaar',
       name: 'The Grand Bazaar',
+      shortName: 'Bazaar',
       subtitle: 'Merchant Exchange',
       npcId: 'silas',
       managedResource: 'prosperity',
-      icon: <Coins className="w-5 h-5 text-emerald-400" />,
-      color: 'from-teal-950/80 to-slate-900 border-teal-500/40',
-      description: 'Caravans from eastern realms exchange exotic spices, gold, and timber.',
-      vitalImpact: 'Generates state tax revenues for the Crown Treasury.',
+      icon: Coins,
+      description: 'Caravans from distant realms exchange luxury goods, timber and coin.',
+      impact: 'Treasury & prosperity',
       outputRate: '+80 gold revenue',
-    }
+    },
+  ];
+
+  const selected = districts.find((district) => district.id === selectedDistrict) || districts[0];
+  const overseer = npcs.find((npc) => npc.id === selected.npcId);
+  const isDistressed = Boolean(
+    overseer && ['Sick', 'Injured', 'Critical'].includes(overseer.status)
+  );
+  const SelectedIcon = selected.icon;
+
+  const vitals = [
+    { label: 'Granary', value: kingdom.granary, icon: Wheat },
+    { label: 'Water', value: kingdom.cleanWater, icon: Droplets },
+    { label: 'Health', value: kingdom.publicHealth, icon: HeartPulse },
+    { label: 'Order', value: kingdom.security, icon: Shield },
+    { label: 'Piety', value: kingdom.piety, icon: Sparkles },
+    { label: 'Unrest', value: kingdom.unrest, icon: AlertTriangle, inverse: true },
   ];
 
   return (
-    <div className="space-y-3 pb-20">
-      {/* Kingdom Health Core Vitals Card */}
-      <div className="rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-indigo-950 p-3.5 border border-amber-500/40 shadow-xl">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <HeartPulse className="w-5 h-5 text-rose-400 animate-pulse" />
-            <div>
-              <h2 className="text-sm font-black text-amber-300 uppercase tracking-wider">
-                Valenreach Kingdom Vitals
-              </h2>
-              <p className="text-[11px] text-slate-300">
-                Population: <strong>{kingdom.population.toLocaleString()} citizens</strong>
-              </p>
-            </div>
+    <section className="ks-kingdom-screen">
+      <div
+        className="ks-kingdom-bg"
+        style={{ backgroundImage: `url(${DISTRICT_BACKDROP})` }}
+        aria-hidden="true"
+      />
+      <div className="ks-kingdom-vignette" aria-hidden="true" />
+
+      <div className="ks-kingdom-content">
+        <div className="ks-kingdom-heading">
+          <div>
+            <div className="ks-eyebrow"><Crown /> ROYAL DOMAIN</div>
+            <h1>Valenreach</h1>
+            <p>Kingdom Districts <span>·</span> The realm moves by your command.</p>
           </div>
-          <div className="text-right">
-            <span className="text-xs text-slate-400">Crown Treasury</span>
-            <div className="font-mono font-black text-amber-300 text-sm">
-              {kingdom.treasuryGold.toLocaleString()} G
-            </div>
+          <div className="ks-kingdom-summary">
+            <div><Landmark /><span>Treasury</span><b>{kingdom.treasuryGold.toLocaleString()} G</b></div>
+            <div><Users /><span>Population</span><b>{kingdom.population.toLocaleString()}</b></div>
           </div>
         </div>
 
-        {/* 6 Vital Indicators Grid */}
-        <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
-          {/* Granary */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <Wheat className="w-3 h-3 text-amber-400" /> Granary
-              </span>
-              <span className={`font-mono font-bold ${kingdom.granary < 30 ? 'text-rose-400' : 'text-amber-300'}`}>
-                {kingdom.granary}%
-              </span>
+        <div className="ks-kingdom-grid">
+          <div className="ks-kingdom-vitals-panel">
+            <div className="ks-section-heading">
+              <div><HeartPulse /><span>Kingdom Vitals</span></div>
+              <small>REALM CONDITION</small>
             </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full transition-all duration-300 ${kingdom.granary < 30 ? 'bg-rose-500' : 'bg-amber-400'}`}
-                style={{ width: `${kingdom.granary}%` }}
-              />
-            </div>
-          </div>
 
-          {/* Clean Water */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <Droplets className="w-3 h-3 text-cyan-400" /> Water
-              </span>
-              <span className={`font-mono font-bold ${kingdom.cleanWater < 30 ? 'text-rose-400' : 'text-cyan-300'}`}>
-                {kingdom.cleanWater}%
-              </span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full transition-all duration-300 ${kingdom.cleanWater < 30 ? 'bg-rose-500' : 'bg-cyan-400'}`}
-                style={{ width: `${kingdom.cleanWater}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Public Health */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <Sparkles className="w-3 h-3 text-pink-400" /> Health
-              </span>
-              <span className={`font-mono font-bold ${kingdom.publicHealth < 30 ? 'text-rose-400' : 'text-pink-300'}`}>
-                {kingdom.publicHealth}%
-              </span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full transition-all duration-300 ${kingdom.publicHealth < 30 ? 'bg-rose-500' : 'bg-pink-400'}`}
-                style={{ width: `${kingdom.publicHealth}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Security */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <Shield className="w-3 h-3 text-indigo-400" /> Order
-              </span>
-              <span className={`font-mono font-bold ${kingdom.security < 30 ? 'text-rose-400' : 'text-indigo-300'}`}>
-                {kingdom.security}%
-              </span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full transition-all duration-300 ${kingdom.security < 30 ? 'bg-rose-500' : 'bg-indigo-400'}`}
-                style={{ width: `${kingdom.security}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Piety */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <Sparkles className="w-3 h-3 text-yellow-400" /> Piety
-              </span>
-              <span className="font-mono font-bold text-yellow-300">
-                {kingdom.piety}%
-              </span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-yellow-400 transition-all duration-300"
-                style={{ width: `${kingdom.piety}%` }}
-              />
-            </div>
-          </div>
-
-          {/* Unrest */}
-          <div className="rounded-xl bg-slate-900/90 p-2 border border-slate-800">
-            <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-              <span className="flex items-center gap-1 font-semibold">
-                <AlertTriangle className="w-3 h-3 text-rose-400" /> Unrest
-              </span>
-              <span className={`font-mono font-bold ${kingdom.unrest > 50 ? 'text-rose-400' : 'text-slate-300'}`}>
-                {kingdom.unrest}%
-              </span>
-            </div>
-            <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-              <div
-                className={`h-full transition-all duration-300 ${kingdom.unrest > 50 ? 'bg-rose-600' : 'bg-slate-500'}`}
-                style={{ width: `${kingdom.unrest}%` }}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Living Supply Chain Pipeline Visualizer */}
-      <div className="rounded-2xl bg-slate-900/90 p-3.5 border border-slate-800 text-xs">
-        <h3 className="font-extrabold text-amber-300 flex items-center gap-1.5 uppercase tracking-wide text-xs">
-          <TrendingUp className="w-4 h-4 text-emerald-400" />
-          Interactive Supply Chains
-        </h3>
-        <p className="text-slate-400 text-[11px] mt-0.5">
-          Everything has an origin. Disruption at any stage cascades through the entire realm:
-        </p>
-
-        <div className="mt-2.5 space-y-2 text-[11px]">
-          {/* Chain 1: Water to Farm to Bread */}
-          <div className="rounded-xl bg-slate-950 p-2 border border-slate-800 flex items-center justify-between gap-1 overflow-x-auto">
-            <span className="flex items-center gap-1 text-cyan-300 font-semibold shrink-0">
-              <Droplets className="w-3.5 h-3.5 text-cyan-400" /> Aqueduct (Mira)
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="flex items-center gap-1 text-amber-300 font-semibold shrink-0">
-              <Wheat className="w-3.5 h-3.5 text-amber-400" /> Grain (Caren)
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="text-emerald-300 font-bold shrink-0">
-              Communal Bread & Granary
-            </span>
-          </div>
-
-          {/* Chain 2: Forge to Tools to Agriculture & Defense */}
-          <div className="rounded-xl bg-slate-950 p-2 border border-slate-800 flex items-center justify-between gap-1 overflow-x-auto">
-            <span className="flex items-center gap-1 text-orange-300 font-semibold shrink-0">
-              <Hammer className="w-3.5 h-3.5 text-orange-400" /> Iron Mine & Forge (Torvin)
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="text-amber-300 font-semibold shrink-0">
-              Forged Scythes & Swords
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="text-indigo-300 font-bold shrink-0">
-              Garrison Armory (Valerius)
-            </span>
-          </div>
-
-          {/* Chain 3: Herbs to Apothecary to Curing NPCs */}
-          <div className="rounded-xl bg-slate-950 p-2 border border-slate-800 flex items-center justify-between gap-1 overflow-x-auto">
-            <span className="flex items-center gap-1 text-emerald-300 font-semibold shrink-0">
-              <Apple className="w-3.5 h-3.5 text-emerald-400" /> Forest Herbs (Lyra)
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="flex items-center gap-1 text-pink-300 font-semibold shrink-0">
-              <Sparkles className="w-3.5 h-3.5 text-pink-400" /> Herbarium (Elena)
-            </span>
-            <ArrowRight className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-            <span className="text-rose-300 font-bold shrink-0">
-              Cures Sick Officials & Citizens
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Districts Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-        {districts.map((dist) => {
-          const overseer = npcs.find((n) => n.id === dist.npcId);
-          const isDistressed = overseer && (overseer.status === 'Sick' || overseer.status === 'Injured');
-
-          return (
-            <div
-              key={dist.id}
-              className={`rounded-2xl p-3 bg-gradient-to-br ${dist.color} border transition-all duration-200 ${
-                isDistressed ? 'ring-2 ring-rose-500 shadow-md shadow-rose-950/40' : 'hover:border-amber-400/50'
-              }`}
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="p-2 rounded-xl bg-slate-950/80 border border-white/10">
-                    {dist.icon}
+            <div className="ks-vital-list">
+              {vitals.map((vital) => {
+                const Icon = vital.icon;
+                const danger = vital.inverse ? vital.value > 50 : vital.value < 30;
+                return (
+                  <div className="ks-vital" key={vital.label}>
+                    <div className="ks-vital-top">
+                      <span><Icon /> {vital.label}</span>
+                      <b className={danger ? 'danger' : ''}>{vital.value}%</b>
+                    </div>
+                    <div className="ks-vital-track">
+                      <i className={danger ? 'danger' : ''} style={{ width: `${vital.value}%` }} />
+                    </div>
                   </div>
+                );
+              })}
+            </div>
+
+            <button className="ks-vitals-action" type="button">
+              <span>Open full realm report</span>
+              <ChevronRight />
+            </button>
+          </div>
+
+          <div className="ks-district-panel">
+            <div className="ks-section-heading">
+              <div><Map /><span>Royal Districts</span></div>
+              <small>{districts.length} ACTIVE</small>
+            </div>
+
+            <div className="ks-district-strip">
+              {districts.map((district) => {
+                const Icon = district.icon;
+                const manager = npcs.find((npc) => npc.id === district.npcId);
+                const distressed = Boolean(manager && ['Sick', 'Injured', 'Critical'].includes(manager.status));
+                return (
+                  <button
+                    key={district.id}
+                    type="button"
+                    className={`ks-district-tab ${selectedDistrict === district.id ? 'selected' : ''}`}
+                    onClick={() => { sound.playClick(); setSelectedDistrict(district.id); }}
+                  >
+                    <span className="ks-district-icon"><Icon /></span>
+                    <span>{district.shortName}</span>
+                    {distressed && <i />}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="ks-district-feature">
+              <div className="ks-district-art">
+                <div className="ks-art-overlay" />
+                <div className="ks-district-art-copy">
+                  <span>SELECTED DISTRICT</span>
+                  <strong>{selected.name}</strong>
+                  <small>{selected.subtitle}</small>
+                </div>
+              </div>
+
+              <div className="ks-district-detail">
+                <div className="ks-detail-title">
                   <div>
-                    <h4 className="text-sm font-black text-white">{dist.name}</h4>
-                    <span className="text-[11px] text-slate-300 block">{dist.subtitle}</span>
+                    <SelectedIcon />
+                    <span>{selected.impact}</span>
                   </div>
+                  <b className={isDistressed ? 'danger' : ''}>
+                    {isDistressed ? 'SUPPLY DISRUPTED' : selected.outputRate}
+                  </b>
+                </div>
+                <p>{selected.description}</p>
+
+                <div className="ks-detail-stats">
+                  <div><span>Overseer</span><b>{overseer?.name || 'Unassigned'}</b></div>
+                  <div><span>Condition</span><b className={isDistressed ? 'danger' : ''}>{overseer?.status || 'Operational'}</b></div>
+                  <div><span>Resource</span><b>{selected.managedResource}</b></div>
                 </div>
 
-                {/* Status indicator */}
-                {isDistressed ? (
-                  <span className="flex items-center gap-1 text-[10px] font-bold bg-rose-600/90 text-white px-2 py-0.5 rounded-full animate-pulse">
-                    <AlertTriangle className="w-3 h-3" /> Supply Disrupted
-                  </span>
-                ) : (
-                  <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded-full">
-                    {dist.outputRate}
-                  </span>
-                )}
-              </div>
-
-              <p className="mt-2 text-[11px] text-slate-300 leading-snug">
-                {dist.description}
-              </p>
-
-              <div className="mt-2 text-[10px] text-amber-200/90 bg-slate-950/60 p-1.5 rounded-lg border border-white/5">
-                <strong className="text-amber-400">Impact:</strong> {dist.vitalImpact}
-              </div>
-
-              {/* Overseer Mini Card */}
-              {overseer && (
-                <div
-                  onClick={() => { sound.playClick(); onSelectNpc(overseer); }}
-                  className="mt-2.5 flex items-center justify-between gap-2 rounded-xl bg-slate-950/80 p-2 border border-slate-800 hover:border-amber-400/50 transition-colors cursor-pointer group"
-                >
-                  <div className="flex items-center gap-2 min-w-0">
+                {overseer && (
+                  <button
+                    className="ks-overseer-card"
+                    type="button"
+                    onClick={() => { sound.playClick(); onSelectNpc(overseer); }}
+                  >
                     <AnimeAvatar
                       seed={overseer.avatarSeed}
                       name={overseer.name}
@@ -386,28 +278,40 @@ export const KingdomDistrictView: React.FC<KingdomDistrictViewProps> = ({
                       status={overseer.status}
                       size="sm"
                     />
-                    <div className="truncate">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors truncate">
-                          {overseer.name}
-                        </span>
-                        <span className="text-[9px] text-slate-400">({overseer.role})</span>
-                      </div>
-                      <span className={`text-[10px] block ${isDistressed ? 'text-rose-400 font-bold' : 'text-emerald-400'}`}>
-                        Condition: {overseer.status} ({overseer.health} HP)
-                      </span>
-                    </div>
-                  </div>
-
-                  <span className="text-[10px] font-bold text-amber-400 group-hover:translate-x-0.5 transition-transform flex items-center gap-0.5 shrink-0">
-                    Visit & Manage →
-                  </span>
-                </div>
-              )}
+                    <span><b>{overseer.name}</b><small>{overseer.role}</small></span>
+                    <ChevronRight />
+                  </button>
+                )}
+              </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        <div className="ks-supply-panel">
+          <div className="ks-section-heading">
+            <div><TrendingUp /><span>Living Supply Chains</span></div>
+            <small>PRODUCTION → DISTRIBUTION → WELFARE</small>
+          </div>
+          <div className="ks-supply-chain">
+            <span><Droplets /> Aqueduct <b>Mira</b></span>
+            <ArrowRight />
+            <span><Wheat /> Farmlands <b>Caren</b></span>
+            <ArrowRight />
+            <strong>Granary & Bread</strong>
+            <ArrowRight />
+            <em>Citizen welfare</em>
+          </div>
+          <div className="ks-supply-chain">
+            <span><Hammer /> Forge <b>Torvin</b></span>
+            <ArrowRight />
+            <strong>Tools & Armaments</strong>
+            <ArrowRight />
+            <span><Shield /> Citadel <b>Valerius</b></span>
+            <ArrowRight />
+            <em>Kingdom order</em>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
