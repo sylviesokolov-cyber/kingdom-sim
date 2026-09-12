@@ -1,0 +1,1 @@
+Home cinematic background asset is stored alongside this file.
