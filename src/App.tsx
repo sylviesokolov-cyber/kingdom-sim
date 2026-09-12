@@ -22,6 +22,7 @@ import {
   RANK_LADDER
 } from './data/initialData';
 import { sound } from './utils/audio';
+import { simulateDay } from './engine/simulation/dailySimulation';
 import { HeaderHUD } from './components/HeaderHUD';
 import { KingdomDistrictView } from './components/KingdomDistrictView';
 import { NpcManagementView } from './components/NpcManagementView';
@@ -140,112 +141,31 @@ export default function App() {
     }
   }, [day, season, player, kingdom, npcs, marketPrices]);
 
-  // Advance Day / Rest Engine
+  // Advance Day / Rest Engine — centralized Phase 1 simulation
   const advanceDay = () => {
-    const nextDay = day + 1;
-    setDay(nextDay);
-
-    // Seasons cycle every 30 days
-    const seasons: Season[] = ['Spring', 'Summer', 'Autumn', 'Winter'];
-    const seasonIndex = Math.floor((nextDay % 120) / 30);
-    setSeason(seasons[seasonIndex]);
-
-    // Player Energy & Health restoration
-    setPlayer((prev) => ({
-      ...prev,
-      energy: Math.min(prev.maxEnergy, prev.energy + 65),
-      health: Math.min(100, prev.health + 10),
-      hunger: Math.min(100, prev.hunger + 15),
-    }));
-
-    // NPCs simulation & Production Line
-    setNpcs((prevNpcs) =>
-      prevNpcs.map((npc) => {
-        let newHealth = npc.health;
-        let newStatus = npc.status;
-        let newModifier = npc.efficiencyModifier;
-
-        // If sick or injured
-        if (newStatus === 'Sick' || newStatus === 'Injured' || newStatus === 'Critical') {
-          newHealth = Math.max(10, newHealth - 8);
-          newModifier = 0.25; // 25% output
-          if (newHealth < 25) newStatus = 'Critical';
-        } else {
-          // Healthy NPCs work at full speed
-          newModifier = 1.0;
-          // 5% random chance of fatigue or incident
-          if (Math.random() < 0.04) {
-            newStatus = 'Sick';
-            newHealth = 60;
-            newModifier = 0.3;
-          }
-        }
-
-        return {
-          ...npc,
-          health: newHealth,
-          status: newStatus,
-          efficiencyModifier: newModifier,
-        };
-      })
-    );
-
-    // Kingdom Vitals update based on NPC status
-    setKingdom((prev) => {
-      const mira = npcs.find((n) => n.id === 'mira');
-      const caren = npcs.find((n) => n.id === 'caren');
-      const valerius = npcs.find((n) => n.id === 'valerius');
-      const elena = npcs.find((n) => n.id === 'elena');
-
-      // Water impact
-      const waterDelta = mira && mira.status === 'Healthy' ? 4 : -8;
-      // Granary impact
-      const grainDelta = caren && caren.status === 'Healthy' ? 3 : -7;
-      // Security impact
-      const securityDelta = valerius && valerius.status === 'Healthy' ? 2 : -6;
-      // Health impact
-      const healthDelta = elena && elena.status === 'Healthy' ? 2 : -5;
-
-      const newGranary = Math.max(5, Math.min(100, prev.granary + grainDelta));
-      const newWater = Math.max(5, Math.min(100, prev.cleanWater + waterDelta));
-      const newSecurity = Math.max(5, Math.min(100, prev.security + securityDelta));
-      const newPublicHealth = Math.max(5, Math.min(100, prev.publicHealth + healthDelta));
-
-      let newUnrest = prev.unrest;
-      if (newGranary < 25 || newWater < 25) newUnrest = Math.min(100, newUnrest + 8);
-      else newUnrest = Math.max(5, newUnrest - 3);
-
-      return {
-        ...prev,
-        granary: newGranary,
-        cleanWater: newWater,
-        security: newSecurity,
-        publicHealth: newPublicHealth,
-        unrest: newUnrest,
-        treasuryGold: prev.treasuryGold + 25,
-      };
+    const result = simulateDay({
+      day,
+      player,
+      kingdom,
+      npcs,
+      marketPrices,
     });
 
-    // Market Price Fluctuations
-    setMarketPrices((prev) =>
-      prev.map((mp) => {
-        const delta = (Math.random() - 0.5) * 4;
-        const newPrice = Math.max(1, Math.round(mp.basePrice + delta));
-        return {
-          ...mp,
-          currentPrice: newPrice,
-          trend: newPrice > mp.currentPrice ? 'up' : newPrice < mp.currentPrice ? 'down' : 'steady',
-        };
-      })
-    );
+    setDay(result.day);
+    setSeason(result.season);
+    setPlayer(result.player);
+    setKingdom(result.kingdom);
+    setNpcs(result.npcs);
+    setMarketPrices(result.marketPrices);
 
-    // Random Event trigger (approx every 3 days)
-    if (nextDay % 3 === 0 || Math.random() < 0.35) {
-      const randomEvent = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
-      setActiveEvent(randomEvent);
-      sound.playAlert();
+    if (result.shouldTriggerEvent) {
+      const randomEvent = RANDOM_EVENTS[result.eventIndex % RANDOM_EVENTS.length];
+      if (randomEvent) {
+        setActiveEvent(randomEvent);
+        sound.playAlert();
+      }
     } else {
-      showToast(`Dawn arrives on Day ${nextDay}! Energy restored.`);
+      showToast(`Dawn arrives on Day ${result.day}! Energy restored.`);
     }
   };
 
