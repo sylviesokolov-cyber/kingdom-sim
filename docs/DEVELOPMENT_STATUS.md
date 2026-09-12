@@ -13,6 +13,7 @@
 - [x] Premium anime-gacha dark/gold visual direction
 - [x] Illustration-first Throne/Home composition
 - [x] Reference-inspired top HUD / left rail / dialogue / companion panel / bottom dock
+- [~] Secondary gameplay screens being visually aligned to the Throne/Home design system
 
 ## Project snapshot
 - [x] React + TypeScript + Vite application exists
@@ -84,6 +85,22 @@
 - [ ] Focused deterministic simulation tests
 - [ ] Player-visible explanations of major simulation changes
 
+## UI consistency pass
+- [x] Shared Royal Gacha secondary-screen style layer added
+- [x] Secondary screens now inherit Home-screen dark/plum/gold materials
+- [x] Legacy secondary bottom navigation restyled to match the Home dock
+- [x] Shared modal material aligned with the Home visual language
+- [x] Royal Gacha UI design-system document added
+- [~] Bespoke cinematic backgrounds and compositions for each secondary screen remain
+- [ ] Kingdom / Districts bespoke screen composition
+- [ ] Characters / Lieutenants bespoke screen composition
+- [ ] Work / Career bespoke screen composition
+- [ ] Market / Bazaar bespoke screen composition
+- [ ] Council / Decrees bespoke screen composition
+- [ ] Intrigue / Crime bespoke screen composition
+- [ ] Bond/Event/Character modal visual pass
+- [ ] Landscape-phone visual regression review for every screen
+
 ## Existing content
 - [x] Valenreach setting
 - [x] Water / aqueduct supply line
@@ -120,9 +137,10 @@
 1. **Verify the latest Phase 2 changes in GitHub Actions.** Wait for queued/in-progress runs; inspect and fix failures rather than declaring completion prematurely.
 2. **Finish Phase 1 save integration and fresh-save playtest.** Preserve `valenreach_save_v1` progress while introducing deliberate migration handling.
 3. **Complete Phase 2 simulation chain:** NPC condition -> production -> supply -> consumption/shortage -> market -> kingdom consequences.
-4. **Add season modifiers and deterministic tests.**
-5. **Add player-facing simulation feedback so the player understands why prices, welfare, unrest, and prosperity change.**
-6. **Then move to Phase 3 player life progression and Phase 4 Character System 2.0.**
+4. **Continue the Royal Gacha UI consistency pass** screen-by-screen without changing gameplay behavior unnecessarily.
+5. **Add season modifiers and deterministic tests.**
+6. **Add player-facing simulation feedback so the player understands why prices, welfare, unrest, and prosperity change.**
+7. **Then move to Phase 3 player life progression and Phase 4 Character System 2.0.**
 
 ## CI verification policy
 For each meaningful development commit:
@@ -158,6 +176,9 @@ Record:
 ## Change log
 
 ### 2026-09-12
+- Added a shared Royal Gacha secondary-screen visual layer so Kingdom, Characters, Work, Market, Council, Crime, and modal surfaces inherit the Throne/Home dark-plum/gold material, typography, borders, shadows, and navigation language.
+- Added `docs/UI_DESIGN_SYSTEM.md` as the canonical UI consistency reference for the screen-by-screen redesign.
+- Began the secondary-screen visual overhaul incrementally without replacing working gameplay components.
 - Updated persistent AI development rules to make mobile landscape PWA and anime-gacha presentation explicit.
 - Added a hard CI verification gate: wait for the exact latest run, inspect failures, fix, and re-check before reporting completion.
 - Updated the Game Bible with the current Throne/Home presentation direction and connected simulation chain.

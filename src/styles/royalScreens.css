@@ -1,0 +1,173 @@
+/* Kingdom Sim — Royal Gacha Screen Layer
+ * Secondary screens inherit the Throne/Home visual language instead of
+ * introducing a separate dashboard design system.
+ */
+:root {
+  --ks-void: #08070d;
+  --ks-void-2: #100c14;
+  --ks-panel: rgba(18, 14, 22, 0.92);
+  --ks-panel-soft: rgba(24, 18, 28, 0.84);
+  --ks-gold: #d9ae55;
+  --ks-gold-hi: #f0d28a;
+  --ks-cream: #f4ebdd;
+  --ks-muted: #aaa1a5;
+  --ks-rose: #ef8190;
+  --ks-border: rgba(217, 174, 85, 0.28);
+}
+
+main.flex-1:not(:has(.ks-home)) {
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(113, 63, 78, 0.24), transparent 38%),
+    linear-gradient(135deg, #09070e 0%, #130c15 48%, #07070c 100%) !important;
+}
+
+main.flex-1:not(:has(.ks-home))::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 50% 22%, rgba(217, 174, 85, 0.08), transparent 42%),
+    linear-gradient(115deg, rgba(87, 37, 58, 0.32), transparent 35%, rgba(47, 38, 65, 0.24)),
+    repeating-linear-gradient(90deg, transparent 0 88px, rgba(217, 174, 85, 0.018) 89px 90px),
+    linear-gradient(180deg, #1a1019 0%, #0b0910 72%, #06060a 100%);
+  filter: saturate(0.82);
+}
+
+main.flex-1:not(:has(.ks-home))::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(4, 4, 8, 0.76), transparent 18%, transparent 82%, rgba(4, 4, 8, 0.76)),
+    linear-gradient(0deg, rgba(4, 4, 8, 0.92), transparent 26%, rgba(4, 4, 8, 0.32));
+}
+
+main.flex-1:not(:has(.ks-home)) > div:first-child {
+  position: relative !important;
+  z-index: 1;
+  min-height: 100% !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(217, 174, 85, 0.45) transparent;
+  padding: 14px 16px 92px !important;
+}
+main.flex-1:not(:has(.ks-home)) > div:first-child::-webkit-scrollbar { width: 6px; }
+main.flex-1:not(:has(.ks-home)) > div:first-child::-webkit-scrollbar-thumb {
+  background: rgba(217, 174, 85, 0.42);
+  border-radius: 999px;
+}
+
+main.flex-1:not(:has(.ks-home)) .bg-slate-950,
+main.flex-1:not(:has(.ks-home)) .bg-slate-950\/70,
+main.flex-1:not(:has(.ks-home)) .bg-slate-950\/80,
+main.flex-1:not(:has(.ks-home)) .bg-slate-950\/90,
+main.flex-1:not(:has(.ks-home)) .bg-slate-900,
+main.flex-1:not(:has(.ks-home)) .bg-slate-900\/70,
+main.flex-1:not(:has(.ks-home)) .bg-slate-900\/80,
+main.flex-1:not(:has(.ks-home)) .bg-slate-900\/90 {
+  background: linear-gradient(145deg, rgba(25, 19, 29, 0.95), rgba(9, 8, 14, 0.94)) !important;
+  border-color: rgba(217, 174, 85, 0.16) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,0.025), 0 12px 28px rgba(0,0,0,0.28);
+}
+
+main.flex-1:not(:has(.ks-home)) .bg-gradient-to-r,
+main.flex-1:not(:has(.ks-home)) .bg-gradient-to-br,
+main.flex-1:not(:has(.ks-home)) .bg-gradient-to-b {
+  background-image: linear-gradient(145deg, rgba(28, 20, 31, 0.97), rgba(9, 8, 14, 0.96)) !important;
+}
+
+main.flex-1:not(:has(.ks-home)) [class*="border-slate-8"],
+main.flex-1:not(:has(.ks-home)) [class*="border-slate-7"],
+main.flex-1:not(:has(.ks-home)) [class*="border-indigo-"],
+main.flex-1:not(:has(.ks-home)) [class*="border-cyan-"],
+main.flex-1:not(:has(.ks-home)) [class*="border-emerald-"] {
+  border-color: rgba(217, 174, 85, 0.18) !important;
+}
+
+main.flex-1:not(:has(.ks-home)) h1,
+main.flex-1:not(:has(.ks-home)) h2,
+main.flex-1:not(:has(.ks-home)) h3,
+main.flex-1:not(:has(.ks-home)) h4 {
+  color: var(--ks-cream) !important;
+  font-family: Cinzel, "Times New Roman", serif !important;
+  letter-spacing: 0.025em;
+}
+
+main.flex-1:not(:has(.ks-home)) .text-slate-100,
+main.flex-1:not(:has(.ks-home)) .text-slate-200,
+main.flex-1:not(:has(.ks-home)) .text-slate-300 { color: #e9dfd7 !important; }
+main.flex-1:not(:has(.ks-home)) .text-slate-400,
+main.flex-1:not(:has(.ks-home)) .text-slate-500 { color: #a99ea0 !important; }
+main.flex-1:not(:has(.ks-home)) .text-amber-300,
+main.flex-1:not(:has(.ks-home)) .text-amber-400 { color: var(--ks-gold-hi) !important; }
+
+main.flex-1:not(:has(.ks-home)) .text-indigo-300,
+main.flex-1:not(:has(.ks-home)) .text-indigo-400,
+main.flex-1:not(:has(.ks-home)) .text-cyan-300,
+main.flex-1:not(:has(.ks-home)) .text-cyan-400,
+main.flex-1:not(:has(.ks-home)) .text-emerald-300,
+main.flex-1:not(:has(.ks-home)) .text-emerald-400 { color: #d8b7c0 !important; }
+
+main.flex-1:not(:has(.ks-home)) .bg-slate-800,
+main.flex-1:not(:has(.ks-home)) .bg-slate-700 { background: #30252f !important; }
+
+main.flex-1:not(:has(.ks-home)) button.bg-amber-500,
+main.flex-1:not(:has(.ks-home)) button.bg-amber-600,
+main.flex-1:not(:has(.ks-home)) button[class*="bg-amber-500"],
+main.flex-1:not(:has(.ks-home)) button[class*="bg-amber-600"] {
+  background: linear-gradient(180deg, #c68a42, #7d3f49) !important;
+  border-color: rgba(240, 210, 138, 0.55) !important;
+  color: #fff7ec !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35), inset 0 1px rgba(255,255,255,0.12);
+}
+
+main.flex-1:not(:has(.ks-home)) button[class*="border-amber"]:not([disabled]):hover {
+  box-shadow: 0 0 18px rgba(217,174,85,0.16);
+}
+
+nav.sticky.bottom-0 {
+  height: 78px !important;
+  padding: 7px 12px 8px !important;
+  background: linear-gradient(180deg, rgba(8,7,13,0.88), rgba(7,6,12,0.98)) !important;
+  border-top: 1px solid rgba(217,174,85,0.28) !important;
+  box-shadow: 0 -12px 32px rgba(0,0,0,0.48) !important;
+  backdrop-filter: blur(18px);
+  z-index: 50 !important;
+}
+nav.sticky.bottom-0 button {
+  min-height: 58px !important;
+  border: 1px solid transparent !important;
+  border-radius: 12px !important;
+  color: #9f9698 !important;
+  background: transparent !important;
+  font-family: Cinzel, "Times New Roman", serif !important;
+  font-size: 10px !important;
+}
+nav.sticky.bottom-0 button:hover,
+nav.sticky.bottom-0 button:focus-visible {
+  color: var(--ks-gold-hi) !important;
+  border-color: rgba(217,174,85,0.25) !important;
+  background: rgba(217,174,85,0.06) !important;
+}
+
+.fixed.inset-0.z-50 {
+  background: rgba(3, 3, 7, 0.82) !important;
+  backdrop-filter: blur(12px);
+}
+.fixed.inset-0.z-50 > div {
+  border-color: rgba(217,174,85,0.38) !important;
+  background: linear-gradient(145deg, rgba(28,20,31,0.98), rgba(8,7,13,0.98)) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,0.72), inset 0 1px rgba(255,255,255,0.035) !important;
+}
+
+@media (max-width: 900px) {
+  main.flex-1:not(:has(.ks-home)) > div:first-child { padding: 10px 10px 88px !important; }
+  nav.sticky.bottom-0 { height: 72px !important; }
+  nav.sticky.bottom-0 button { min-height: 54px !important; font-size: 9px !important; }
+}
