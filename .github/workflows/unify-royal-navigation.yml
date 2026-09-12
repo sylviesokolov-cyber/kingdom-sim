@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   unify:
-    if: ${{ !contains(github.event.head_commit.message, 'Unify Royal Navigation') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,20 +19,16 @@ jobs:
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          import re
-
           p = Path('src/App.tsx')
           s = p.read_text()
-
-          old_import = '''  Building2, \n  Users, \n  Briefcase, \n  ShoppingBag, \n  Skull, \n  Crown, \n  Maximize2, \n  Minimize2,\n  Sparkles,\n  RotateCcw,\n  Home,\n  Scroll'''
-          new_import = '''  Building2,\n  Users,\n  Briefcase,\n  ShoppingBag,\n  Skull,\n  Crown,\n  Maximize2,\n  Minimize2,\n  Sparkles,\n  RotateCcw,\n  Home,\n  Scroll,\n  Castle,\n  Map,\n  Swords,\n  Scale,\n  Gem,\n  Backpack,\n  CalendarDays'''
-          if old_import in s:
-              s = s.replace(old_import, new_import, 1)
-
-          start = s.index('        {/* Bottom Gacha Navigation Dock */}')
-          end = s.index('        </nav>', start) + len('        </nav>')
-
-          new_nav = '''        {/* Shared Royal Gacha Navigation Dock — identical tab set to Home */}
+          if 'ks-shared-bottom-nav' not in s:
+              old_import = '''  Building2, \n  Users, \n  Briefcase, \n  ShoppingBag, \n  Skull, \n  Crown, \n  Maximize2, \n  Minimize2,\n  Sparkles,\n  RotateCcw,\n  Home,\n  Scroll'''
+              new_import = '''  Building2,\n  Users,\n  Briefcase,\n  ShoppingBag,\n  Skull,\n  Crown,\n  Maximize2,\n  Minimize2,\n  Sparkles,\n  RotateCcw,\n  Home,\n  Scroll,\n  Castle,\n  Map,\n  Swords,\n  Scale,\n  Gem,\n  Backpack,\n  CalendarDays'''
+              if old_import in s:
+                  s = s.replace(old_import, new_import, 1)
+              start = s.index('        {/* Bottom Gacha Navigation Dock */}')
+              end = s.index('        </nav>', start) + len('        </nav>')
+              new_nav = '''        {/* Shared Royal Gacha Navigation Dock — identical tab set to Home */}
         <nav className="sticky bottom-0 z-30 w-full ks-shared-bottom-nav">
           <div className="ks-shared-bottom-inner">
             <div className="ks-shared-bottom-tabs">
@@ -47,11 +42,7 @@ jobs:
                 ['Summon', Gem, null],
                 ['Inventory', Backpack, null],
               ] as const).map(([label, Icon, tab]) => (
-                <button
-                  key={label}
-                  onClick={() => { sound.playClick(); if (tab) setCurrentTab(tab); else showToast(`${label} system coming soon.`); }}
-                  className={currentTab === tab ? 'selected' : ''}
-                >
+                <button key={label} onClick={() => { sound.playClick(); if (tab) setCurrentTab(tab); else showToast(`${label} system coming soon.`); }} className={currentTab === tab ? 'selected' : ''}>
                   <Icon />
                   <span>{label}</span>
                   {label === 'Characters' && sickNpcCount > 0 && <i />}
@@ -64,24 +55,17 @@ jobs:
             </button>
           </div>
         </nav>'''
-
-          s = s[:start] + new_nav + s[end:]
-          p.write_text(s)
+              s = s[:start] + new_nav + s[end:]
+              p.write_text(s)
           PY
 
-      - name: Match the Home dock styling
+      - name: Add shared navigation styling
         run: |
-          cat >> src/styles/royalScreens.css <<'CSS'
+          if ! grep -q 'ks-shared-bottom-nav' src/styles/royalScreens.css; then
+            cat >> src/styles/royalScreens.css <<'CSS'
 
           /* Shared bottom navigation: secondary screens use the exact same tab language as Home. */
-          .ks-shared-bottom-nav {
-            height: 78px !important;
-            padding: 7px 12px 8px !important;
-            background: linear-gradient(180deg, rgba(8,7,13,.94), rgba(7,6,12,.99)) !important;
-            border-top: 1px solid rgba(217,174,85,.28) !important;
-            box-shadow: 0 -12px 32px rgba(0,0,0,.48) !important;
-            backdrop-filter: blur(18px);
-          }
+          .ks-shared-bottom-nav { height:78px !important; padding:7px 12px 8px !important; background:linear-gradient(180deg,rgba(8,7,13,.94),rgba(7,6,12,.99)) !important; border-top:1px solid rgba(217,174,85,.28) !important; box-shadow:0 -12px 32px rgba(0,0,0,.48) !important; backdrop-filter:blur(18px); }
           .ks-shared-bottom-inner { display:flex; align-items:stretch; gap:10px; width:100%; max-width:1500px; height:100%; margin:0 auto; }
           .ks-shared-bottom-tabs { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:5px; flex:1; min-width:0; }
           .ks-shared-bottom-tabs button { position:relative; min-width:0; min-height:58px; border:1px solid transparent; border-radius:12px; color:#9f9698; background:transparent; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; font-family:Cinzel,"Times New Roman",serif; font-size:10px; transition:all .18s ease; }
@@ -93,23 +77,20 @@ jobs:
           .ks-shared-next-day { min-width:210px; padding:0 24px; border:1px solid rgba(217,174,85,.48); border-radius:13px; background:linear-gradient(180deg,rgba(39,29,24,.96),rgba(14,11,15,.98)); color:#f4ebdd; display:flex; align-items:center; justify-content:center; gap:10px; font-family:Cinzel,"Times New Roman",serif; font-size:15px; box-shadow:inset 0 1px rgba(255,255,255,.06),0 0 18px rgba(217,174,85,.06); }
           .ks-shared-next-day svg { width:22px; height:22px; color:#f0d28a; }
           .ks-shared-next-day:hover { border-color:rgba(240,210,138,.78); background:linear-gradient(180deg,rgba(58,39,28,.98),rgba(23,14,19,.98)); }
-          @media (max-width: 900px) {
-            .ks-shared-bottom-nav { height:72px !important; padding:6px 8px 7px !important; }
-            .ks-shared-bottom-inner { gap:6px; }
-            .ks-shared-bottom-tabs { gap:2px; }
-            .ks-shared-bottom-tabs button { min-height:54px; font-size:8px; }
-            .ks-shared-bottom-tabs button svg { width:18px; height:18px; }
-            .ks-shared-next-day { min-width:128px; padding:0 10px; font-size:11px; }
-          }
+          @media (max-width:900px) { .ks-shared-bottom-nav{height:72px !important;padding:6px 8px 7px !important}.ks-shared-bottom-inner{gap:6px}.ks-shared-bottom-tabs{gap:2px}.ks-shared-bottom-tabs button{min-height:54px;font-size:8px}.ks-shared-bottom-tabs button svg{width:18px;height:18px}.ks-shared-next-day{min-width:128px;padding:0 10px;font-size:11px} }
           CSS
+          fi
 
-      - name: Commit and remove one-shot workflow
+      - name: Verify, commit, and remove migration workflow
         run: |
+          npm ci
+          npm run typecheck
+          npm run build
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/App.tsx src/styles/royalScreens.css
-          git commit -m "Unify Royal Navigation" || exit 0
+          git commit -m "Unify Royal Navigation" || true
           git push
-          git rm .github/workflows/unify-royal-navigation.yml
-          git commit -m "Remove one-shot navigation migration"
+          git rm .github/workflows/unify-royal-navigation.yml .github/unify-navigation-trigger.txt || true
+          git commit -m "Remove navigation migration workflow" || true
           git push
