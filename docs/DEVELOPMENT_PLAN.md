@@ -1,19 +1,26 @@
 # Kingdom Sim — Development Plan
 
 ## Goal
-Turn the current feature-rich vertical prototype into a cohesive, replayable kingdom-life RPG without throwing away its existing content or visual identity.
+Turn the current feature-rich vertical prototype into a cohesive, replayable, mobile-first landscape kingdom-life RPG without throwing away its existing content, simulation foundation, or anime/gacha/VN visual identity.
+
+## Product priorities
+1. **Mobile landscape PWA first.** The primary target is a phone installed as a PWA and played horizontally; larger landscape screens are secondary scaling targets.
+2. **Anime gacha/VN presentation.** Character art, cinematic backgrounds, dialogue, companion cards, bonds, rarity language, and premium dark/gold UI remain central.
+3. **Systems before decoration.** Every new gameplay screen/action must have typed state, a real state transition, visible consequence, persistence where appropriate, and interaction with the day loop.
+4. **Incremental development.** Extract and improve the existing implementation rather than performing a big-bang rewrite.
+5. **Verification gate.** A change is not complete when code is merely committed. The exact resulting CI/build/deployment must be checked; failures must be fixed and re-checked.
 
 ## Development order
 
 ### Phase 0 — Context & audit
-**Status: COMPLETE (documented baseline)**
+**Status: COMPLETE**
 - Establish persistent AI handoff context.
 - Record implemented systems separately from planned systems.
 - Maintain a living status tracker.
 - Map story threads, NPCs, resources, UI systems, and save state.
 
 ### Phase 1 — Foundation stabilization
-**Status: NEXT**
+**Status: FOUNDATION INTEGRATED; FINAL PLAYTEST/SAVE VERIFICATION REMAINS**
 - Run a complete code/build audit.
 - Identify broken, dead, duplicated, or contradictory mechanics.
 - Centralize important game-rule calculations.
@@ -21,20 +28,33 @@ Turn the current feature-rich vertical prototype into a cohesive, replayable kin
 - Add deterministic/testable simulation functions where practical.
 - Fix mobile layout and interaction problems discovered during playtesting.
 - Establish a clean state/action/selector direction without a premature rewrite.
+- Centralize day advancement through `src/engine/simulation/dailySimulation.ts`.
 
-**Exit criteria:** game can be played through a representative multi-day loop without obvious state corruption; build/lint are clean; saves survive code evolution.
+**Exit criteria:** representative multi-day loop works without obvious state corruption; build/lint are clean; saves survive code evolution; fresh-save path has been playtested.
 
 ### Phase 2 — Simulation Core
-- Create a reusable daily simulation pipeline.
+**Status: ACTIVE**
+Build the kingdom as a connected living simulation.
+- Reusable daily simulation pipeline.
 - NPC condition -> efficiency -> production.
 - Production -> inventory/storage/supply.
-- Consumption and shortages -> kingdom/population effects.
+- Consumption and shortages -> population/kingdom effects.
 - Market supply -> price movement.
 - Kingdom conditions -> unrest/prosperity/events.
 - Season modifiers affect production, prices, health, and events.
 - NPC recovery/sickness uses coherent rules instead of scattered mutations.
+- Make production and consumption visibly explain market and kingdom changes.
 
-**Exit criteria:** changing one major input produces predictable downstream consequences.
+**Immediate Phase 2 sequence:**
+1. Verify the existing centralized simulation in CI.
+2. Model resource production/storage/supply changes explicitly.
+3. Add consumption and shortage/surplus consequences.
+4. Connect supply/demand to market pricing and supply levels.
+5. Connect kingdom vitals to unrest/prosperity/event pressure.
+6. Add season-specific modifiers.
+7. Add focused simulation tests for important transitions.
+
+**Exit criteria:** changing one major input produces predictable downstream consequences across at least NPC -> resource -> market/kingdom -> player-visible outcome.
 
 ### Phase 3 — Player life progression
 - Hunger, health, energy and recovery become meaningful choices.
@@ -235,6 +255,19 @@ src/
 
 Do not perform a big-bang rewrite. Extract rules from `App.tsx` as each subsystem is touched.
 
+## UI implementation direction
+
+The primary home composition is an anime-gacha landscape screen:
+- premium top HUD with player/profile, level/XP, currencies, day/season and utilities
+- compact left utility rail for mail/quests/events/notices
+- cinematic central character stage with the supplied background direction
+- dialogue box and encounter/matters cards
+- right companion profile with affection/loyalty, tags, quote, Talk/Gift/Bond actions, profile links and retinue
+- compact bottom dock for major game areas
+- no duplicate legacy navigation on the Throne/Home screen
+
+Other screens should reuse the same design language and remain usable at phone landscape sizes.
+
 ## Definition of done for gameplay work
 A feature is not complete merely because its UI exists. It should have:
 - typed state
@@ -246,12 +279,31 @@ A feature is not complete merely because its UI exists. It should have:
 - sensible edge-case handling
 - mobile usability
 - build/lint verification
+- exact latest-commit CI verification
+- deployment verification when the change affects production
 - tracker update
 
+## CI / verification workflow
+
+For every meaningful repository change:
+1. Commit/push the change.
+2. Identify the GitHub Actions run generated by the latest commit.
+3. If the run is queued/in progress, wait and poll it rather than reporting completion.
+4. Inspect failed jobs and logs when a run fails.
+5. Fix the failure and push a corrective commit.
+6. Repeat verification until the relevant build/deployment is green.
+7. Only then mark the work `[x]` and report it as complete.
+
+An older green run does not count as verification for a newer commit.
+
 ## Immediate implementation sequence
-1. Add/maintain persistent project context (this documentation).
-2. Audit the current runtime and identify the real play path from a fresh save.
-3. Stabilize the existing day/action/save loop.
-4. Extract the daily simulation into testable engine functions.
-5. Playtest the loop and fix the highest-impact friction/bugs.
-6. Only then begin deeper economy/faction/story expansion.
+1. Maintain persistent project context and verification rules.
+2. Complete Phase 1 fresh-save/runtime audit and save migration integration.
+3. Verify the latest centralized simulation build/deployment.
+4. Finish Phase 2 simulation core: production, consumption, shortages, pricing, kingdom consequences, seasons.
+5. Playtest the multi-day loop and fix the highest-impact friction/bugs.
+6. Build Character System 2.0 and deeper character arcs.
+7. Implement factions and political consequences.
+8. Implement the data-driven main story.
+9. Expand economy, kingdom development, crises, succession, and endings.
+10. Polish, balance, regression-test, and release.
